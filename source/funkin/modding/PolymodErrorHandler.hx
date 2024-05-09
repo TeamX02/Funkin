@@ -1,5 +1,6 @@
 package funkin.modding;
 
+#if desktop
 import polymod.Polymod;
 
 class PolymodErrorHandler
@@ -89,3 +90,4 @@ class PolymodErrorHandler
     trace('[WARN-] ${message}');
   }
 }
+#end
