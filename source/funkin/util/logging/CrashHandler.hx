@@ -164,6 +164,7 @@ class CrashHandler
 
     fullContents += 'Loaded mods: \n';
 
+    #if desktop
     if (funkin.modding.PolymodHandler.loadedModIds.length == 0)
     {
       fullContents += 'No mods loaded.\n';
@@ -175,6 +176,7 @@ class CrashHandler
         fullContents += '- ${mod}\n';
       }
     }
+    #end
 
     fullContents += '\n';
 

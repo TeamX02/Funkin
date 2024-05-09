@@ -72,8 +72,10 @@ class MusicBeatSubState extends FlxSubState implements IEventHandler
     // Emergency exit button.
     if (FlxG.keys.justPressed.F4) FlxG.switchState(() -> new MainMenuState());
 
+    #if desktop
     // This can now be used in EVERY STATE YAY!
     if (FlxG.keys.justPressed.F5) debug_refreshModules();
+    #end
 
     // Display Conductor info in the watch window.
     FlxG.watch.addQuick("musicTime", FlxG.sound.music?.time ?? 0.0);
@@ -82,6 +84,7 @@ class MusicBeatSubState extends FlxSubState implements IEventHandler
     dispatchEvent(new UpdateScriptEvent(elapsed));
   }
 
+  #if desktop
   function debug_refreshModules()
   {
     PolymodHandler.forceReloadAssets();
@@ -89,6 +92,7 @@ class MusicBeatSubState extends FlxSubState implements IEventHandler
     // Restart the current state, so old data is cleared.
     FlxG.resetState();
   }
+  #end
 
   /**
    * Refreshes the state, by redoing the render order of all sprites.

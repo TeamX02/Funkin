@@ -53,7 +53,8 @@ class Save
   public function new(?data:RawSaveData)
   {
     if (data == null) this.data = Save.getDefault();
-    else this.data = data;
+    else
+      this.data = data;
   }
 
   public static function getDefault():RawSaveData
@@ -105,12 +106,14 @@ class Save
             },
         },
 
+      #if desktop
       mods:
         {
           // No mods enabled.
           enabledMods: [],
           modOptions: [],
         },
+      #end
 
       optionsChartEditor:
         {
@@ -142,12 +145,14 @@ class Save
   /**
    * NOTE: Modifications will not be saved without calling `Save.flush()`!
    */
+  #if desktop
   public var modOptions(get, never):Map<String, Dynamic>;
 
   function get_modOptions():Map<String, Dynamic>
   {
     return data.mods.modOptions;
   }
+  #end
 
   /**
    * The current session ID for the logged-in Newgrounds user, or null if the user is cringe.
@@ -166,6 +171,7 @@ class Save
     return data.api.newgrounds.sessionId;
   }
 
+  #if desktop
   public var enabledModIds(get, set):Array<String>;
 
   function get_enabledModIds():Array<String>
@@ -179,6 +185,7 @@ class Save
     flush();
     return data.mods.enabledMods;
   }
+  #end
 
   public var chartEditorPreviousFiles(get, set):Array<String>;
 
@@ -740,7 +747,9 @@ typedef RawSaveData =
    */
   var options:SaveDataOptions;
 
+  #if desktop
   var mods:SaveDataMods;
+  #end
 
   /**
    * The user's preferences specific to the Chart Editor.
@@ -774,11 +783,13 @@ typedef SaveHighScoresData =
   var songs:SaveScoreSongsData;
 };
 
+#if desktop
 typedef SaveDataMods =
 {
   var enabledMods:Array<String>;
   var modOptions:Map<String, Dynamic>;
 }
+#end
 
 /**
  * Key is the level ID, value is the SaveScoreLevelData.

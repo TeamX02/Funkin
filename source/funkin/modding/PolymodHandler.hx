@@ -1,5 +1,6 @@
 package funkin.modding;
 
+#if desktop
 import polymod.fs.ZipFileSystem;
 import funkin.data.dialogue.conversation.ConversationRegistry;
 import funkin.data.dialogue.dialoguebox.DialogueBoxRegistry;
@@ -382,3 +383,4 @@ class PolymodHandler
     ModuleHandler.loadModuleCache();
   }
 }
+#end

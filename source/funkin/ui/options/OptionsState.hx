@@ -271,6 +271,6 @@ enum PageName
   Options;
   Controls;
   Colors;
-  Mods;
+  // Mods;
   Preferences;
 }
