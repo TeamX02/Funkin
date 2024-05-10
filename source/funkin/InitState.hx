@@ -73,11 +73,13 @@ class InitState extends FlxState
     // GAME SETUP
     //
 
+    #if desktop
     // Setup window events (like callbacks for onWindowClose)
     // and fullscreen keybind setup
     WindowUtil.initWindowEvents();
     // Disable the thing on Windows where it tries to send a bug report to Microsoft because why do they care?
     WindowUtil.disableCrashHandler();
+    #end
 
     // This ain't a pixel art game! (most of the time)
     FlxSprite.defaultAntialiasing = true;
