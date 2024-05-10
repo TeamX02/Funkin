@@ -32,6 +32,7 @@ import openfl.media.Video;
 import openfl.net.NetStream;
 import funkin.api.newgrounds.NGio;
 import openfl.display.BlendMode;
+import lime.app.Application;
 
 class TitleState extends MusicBeatState
 {
@@ -56,13 +57,15 @@ class TitleState extends MusicBeatState
   override public function create():Void
   {
     super.create();
-    #if desktop
-    swagShader = new ColorSwap();
-    #end
+
+    Application.current.window.alert('amogus', 'hi');
+    #if desktop swagShader = new ColorSwap(); #end
 
     curWacky = FlxG.random.getObject(getIntroTextShit());
+    #if desktop
     FlxG.sound.cache(Paths.music('freakyMenu/freakyMenu'));
     FlxG.sound.cache(Paths.music('girlfriendsRingtone/girlfriendsRingtone'));
+    #end
 
     // DEBUG BULLSHIT
 
@@ -72,6 +75,7 @@ class TitleState extends MusicBeatState
     });
   }
 
+  #if desktop
   function client_onMetaData(metaData:Dynamic)
   {
     video.attachNetStream(netStream);
@@ -98,6 +102,7 @@ class TitleState extends MusicBeatState
 
     trace(event.toString());
   }
+  #end
 
   function overlay_onMouseDown(event:MouseEvent):Void
   {

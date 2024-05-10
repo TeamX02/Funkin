@@ -36,8 +36,10 @@ class Main extends Sprite
   public static function main():Void
   {
     // We need to make the crash handler LITERALLY FIRST so nothing EVER gets past it.
+    #if desktop
     CrashHandler.initialize();
     CrashHandler.queryStatus();
+    #end
 
     Lib.current.addChild(new Main());
   }
