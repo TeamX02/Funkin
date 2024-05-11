@@ -1416,15 +1416,15 @@ class FlxActionInputDigitalMobileSwipeGameplay extends FlxActionInputDigital
   }
 }
 
-/* Maybe this can be committed to main HaxeFlixel repo?
-  #if android
-  class FlxActionInputDigitalAndroid extends FlxActionInputDigital
-  {
+// Maybe this can be committed to main HaxeFlixel repo?
+#if android
+class FlxActionInputDigitalAndroid extends FlxActionInputDigital
+{
   /**
-  * Android buttons action input
-  * @param	androidKeyID Key identifier (FlxAndroidKey.BACK, FlxAndroidKey.MENU... those are the only 2 android specific ones)
-  * @param	Trigger What state triggers this action (PRESSED, JUST_PRESSED, RELEASED, JUST_RELEASED)
-
+   * Android buttons action input
+   * @param	androidKeyID Key identifier (FlxAndroidKey.BACK, FlxAndroidKey.MENU... those are the only 2 android specific ones)
+   * @param	Trigger What state triggers this action (PRESSED, JUST_PRESSED, RELEASED, JUST_RELEASED)
+   */
   public function new(androidKeyID:FlxAndroidKey, Trigger:FlxInputState)
   {
     super(FlxInputDevice.OTHER, androidKeyID, Trigger);
@@ -1432,9 +1432,8 @@ class FlxActionInputDigitalMobileSwipeGameplay extends FlxActionInputDigital
 
   override public function check(Action:FlxAction):Bool
   {
-    returnswitch(trigger);
+    return switch (trigger)
     {
-
       #if android
       case PRESSED: FlxG.android.checkStatus(inputID, PRESSED) || FlxG.android.checkStatus(inputID, PRESSED);
       case RELEASED: FlxG.android.checkStatus(inputID, RELEASED) || FlxG.android.checkStatus(inputID, JUST_RELEASED);
@@ -1445,9 +1444,9 @@ class FlxActionInputDigitalMobileSwipeGameplay extends FlxActionInputDigital
       default: false;
     }
   }
-  }
-  #end
- */
+}
+#end
+
 /**
  * Since, in many cases multiple actions should use similar keys, we don't want the
  * rebinding UI to list every action. ActionBinders are what the user percieves as

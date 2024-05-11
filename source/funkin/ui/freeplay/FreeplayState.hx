@@ -1158,7 +1158,7 @@ class FreeplayState extends MusicBeatSubState
           #if (debug || FORCE_DEBUG_VERSION)
           botPlayMode: FlxG.keys.pressed.SHIFT,
           #else
-          botPlayMode: false,
+          botPlayMode: true,
           #end
           // TODO: Make these an option! It's currently only accessible via chart editor.
           // startTimestamp: 0.0,
