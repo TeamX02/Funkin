@@ -2769,7 +2769,7 @@ class PlayState extends MusicBeatSubState
     dispatchEvent(event);
     if (event.eventCanceled) return;
 
-    #if sys
+    #if desktop
     // spitter for ravy, teehee!!
     var writer = new json2object.JsonWriter<Array<ScoreInput>>();
     var output = writer.write(inputSpitter, '  ');
