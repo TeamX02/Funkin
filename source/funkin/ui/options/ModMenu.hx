@@ -1,6 +1,5 @@
 package funkin.ui.options;
 
-#if desktop
 import funkin.modding.PolymodHandler;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -127,4 +126,3 @@ class ModMenuItem extends FlxText
     super.update(elapsed);
   }
 }
-#end
