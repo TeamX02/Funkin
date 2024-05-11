@@ -32,8 +32,9 @@ import openfl.media.Video;
 import openfl.net.NetStream;
 import funkin.api.newgrounds.NGio;
 import openfl.display.BlendMode;
-import lime.app.Application;
 
+#if desktop
+#end
 class TitleState extends MusicBeatState
 {
   /**
@@ -57,15 +58,11 @@ class TitleState extends MusicBeatState
   override public function create():Void
   {
     super.create();
-
-    Application.current.window.alert('amogus', 'hi');
-    #if desktop swagShader = new ColorSwap(); #end
+    swagShader = new ColorSwap();
 
     curWacky = FlxG.random.getObject(getIntroTextShit());
-    #if desktop
     FlxG.sound.cache(Paths.music('freakyMenu/freakyMenu'));
     FlxG.sound.cache(Paths.music('girlfriendsRingtone/girlfriendsRingtone'));
-    #end
 
     // DEBUG BULLSHIT
 
@@ -75,7 +72,6 @@ class TitleState extends MusicBeatState
     });
   }
 
-  #if desktop
   function client_onMetaData(metaData:Dynamic)
   {
     video.attachNetStream(netStream);
@@ -102,7 +98,6 @@ class TitleState extends MusicBeatState
 
     trace(event.toString());
   }
-  #end
 
   function overlay_onMouseDown(event:MouseEvent):Void
   {
@@ -135,7 +130,7 @@ class TitleState extends MusicBeatState
     logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
     logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
     logoBl.animation.play('bump');
-    // logoBl.shader = swagShader.shader;
+    logoBl.shader = swagShader.shader;
     logoBl.updateHitbox();
 
     outlineShaderShit = new TitleOutline();
@@ -150,7 +145,7 @@ class TitleState extends MusicBeatState
     // maskShader.frameUV = gfDance.frame.uv;
     // gfDance.shader = maskShader;
 
-    // gfDance.shader = swagShader.shader;
+    gfDance.shader = swagShader.shader;
 
     // gfDance.shader = new TitleOutline();
 
@@ -164,7 +159,7 @@ class TitleState extends MusicBeatState
     titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
     titleText.animation.play('idle');
     titleText.updateHitbox();
-    // titleText.shader = swagShader.shader;
+    titleText.shader = swagShader.shader;
     // titleText.screenCenter(X);
     add(titleText);
 
@@ -341,8 +336,8 @@ class TitleState extends MusicBeatState
     }
     if (pressedEnter && !skippedIntro && initialized) skipIntro();
 
-    // if (controls.UI_LEFT) swagShader.update(-elapsed * 0.1);
-    // if (controls.UI_RIGHT) swagShader.update(elapsed * 0.1);
+    if (controls.UI_LEFT) swagShader.update(-elapsed * 0.1);
+    if (controls.UI_RIGHT) swagShader.update(elapsed * 0.1);
     if (!cheatActive && skippedIntro) cheatCodeShit();
     super.update(elapsed);
   }
@@ -491,7 +486,7 @@ class TitleState extends MusicBeatState
     }
     if (skippedIntro)
     {
-      // if (cheatActive && Conductor.instance.currentBeat % 2 == 0) swagShader.update(0.125);
+      if (cheatActive && Conductor.instance.currentBeat % 2 == 0) swagShader.update(0.125);
 
       if (logoBl != null && logoBl.animation != null) logoBl.animation.play('bump', true);
 
