@@ -1,4 +1,4 @@
-package;
+package; // x02 esteve aqui
 
 #if android
 import android.content.Context;
@@ -6,14 +6,14 @@ import android.os.Build;
 #end
 import flixel.FlxGame;
 import flixel.FlxState;
-import funkin.util.logging.CrashHandler;
-import funkin.ui.debug.MemoryCounter;
 import funkin.save.Save;
+import funkin.ui.debug.MemoryCounter;
+import funkin.util.logging.CrashHandler;
 import haxe.ui.Toolkit;
+import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.Lib;
 import openfl.media.Video;
 import openfl.net.NetStream;
 
