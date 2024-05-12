@@ -154,6 +154,9 @@ class MainMenuState extends MusicBeatState
 
     // FlxG.camera.setScrollBounds(bg.x, bg.x + bg.width, bg.y, bg.y + bg.height * 1.2);
 
+    #if mobile
+    addVirtualPad(UP_DOWN, A_B);
+    #end
     super.create();
 
     // This has to come AFTER!
@@ -308,23 +311,24 @@ class MainMenuState extends MusicBeatState
   {
     super.update(elapsed);
 
-    if (FlxG.onMobile)
-    {
-      var touch:FlxTouch = FlxG.touches.getFirst();
-
-      if (touch != null)
+    /*
+      if (FlxG.onMobile)
       {
-        for (item in menuItems)
+        var touch:FlxTouch = FlxG.touches.getFirst();
+
+        if (touch != null)
         {
-          if (touch.overlaps(item))
+          for (item in menuItems)
           {
-            if (menuItems.selectedIndex == item.ID && touch.justPressed) menuItems.accept();
-            else
-              menuItems.selectItem(item.ID);
+            if (touch.overlaps(item))
+            {
+              if (menuItems.selectedIndex == item.ID && touch.justPressed) menuItems.accept();
+              else
+                menuItems.selectItem(item.ID);
+            }
           }
         }
-      }
-    }
+    }*/
 
     // Open the debug menu, defaults to ` / ~
     #if CHART_EDITOR_SUPPORTED

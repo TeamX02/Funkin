@@ -22,7 +22,7 @@
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false" />
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false" />
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
@@ -102,6 +102,7 @@
 		NOT USING A DIRECT THING TO THE ASSET!!!
 	-->
 	<assets path="assets/fonts" embed="true" />
+	<assets path="mobile" rename="assets/mobile" if="mobile" />
 
 	<!-- If compiled via github actions, show debug version number. -->
 	<define name="FORCE_DEBUG_VERSION" if="GITHUB_BUILD" />
@@ -123,7 +124,8 @@
 	<haxelib name="flixel-text-input" /> <!-- Improved text field rendering for HaxeUI -->
 	<haxelib name="polymod" /> <!-- Modding framework -->
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
-	<haxelib name="hxCodec" if="desktop || mobile" unless="hl" /> <!-- Video playback -->
+	<!-- <haxelib name="hxvlc" if="desktop || mobile" unless="hl" /> --> <!-- Video playback -->
+	<haxelib name="extension-androidtools" if="android" /> <!-- Android Functions -->
 	<haxelib name="funkin.vis"/>
 
 
@@ -191,6 +193,9 @@
 	<haxedef name="haxeui_dont_impose_base_class" />
 	<haxedef name="HARDCODED_CREDITS" />
 
+	<!--Allow working memory greater than 1 Gig-->
+	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+
 	<!-- Skip the Intro -->
 	<section if="debug">
 		<!-- Starts the game at the specified week, at the first song -->
@@ -212,7 +217,7 @@
 	<!-- Uncomment this to wipe your input settings. -->
 	<!-- <haxedef name="CLEAR_INPUT_SAVE"/> -->
 
-	<section if="debug" unless="NO_REDIRECT_ASSETS_FOLDER || html5 || GITHUB_BUILD">
+	<section if="debug" unless="NO_REDIRECT_ASSETS_FOLDER || html5 || mobile || GITHUB_BUILD">
 		<!--
 			Use the parent assets folder rather than the exported one
 			No more will we accidentally undo our changes!
@@ -220,6 +225,8 @@
 		<haxedef name="REDIRECT_ASSETS_FOLDER" />
 	</section>
 
+
+	<architecture exclude="armv7" if="android" />
 
 	<section>
 		<!--
@@ -230,18 +237,18 @@
 	</section>
 
 	<!-- Run a script before and after building. -->
-	<prebuild haxe="source/Prebuild.hx"/> -->
-	<postbuild haxe="source/Postbuild.hx"/> -->
+	<prebuild haxe="source/Prebuild.hx"/>
+	<postbuild haxe="source/Postbuild.hx"/>
 
 	<!-- Enable this on platforms which do not support dropping files onto the window. -->
-	<haxedef name="FILE_DROP_UNSUPPORTED" if="mac" />
+	<haxedef name="FILE_DROP_UNSUPPORTED" if="mac || mobile" />
 	<section unless="FILE_DROP_UNSUPPORTED">
 		<haxedef name="FILE_DROP_SUPPORTED" />
 	</section>
 
 	<!-- Enable this on platforms which do not support the edsior views. -->
-	<haxedef name="CHART_EDITOR_UNSUPPORTED" if="web" />
-	<haxedef name="CHART_EDITOR_SUPPORTED" unless="web"/>
+	<haxedef name="CHART_EDITOR_UNSUPPORTED" if="web || mobile" />
+	<haxedef name="CHART_EDITOR_SUPPORTED" unless="web || mobile"/>
 
 	<!-- Options for Polymod -->
 	<section if="polymod">

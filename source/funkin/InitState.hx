@@ -136,6 +136,7 @@ class InitState extends FlxState
     //
     #if android
     FlxG.android.preventDefaultKeys = [flixel.input.android.FlxAndroidKey.BACK];
+    funkin.util.StorageUtil.copyNecessaryFiles(['mp4' => 'assets/videos']);
     #end
 
     //

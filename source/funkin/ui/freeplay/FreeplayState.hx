@@ -637,6 +637,9 @@ class FreeplayState extends MusicBeatSubState
     rememberSelection();
 
     changeSelection();
+    #if mobile
+    addVirtualPad(UP_DOWN, A_B);
+    #end
     changeDiff(0, true);
   }
 

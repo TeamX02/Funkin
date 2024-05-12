@@ -10,8 +10,8 @@ import flixel.util.FlxTimer;
 #if html5
 import funkin.graphics.video.FlxVideo;
 #end
-#if hxCodec
-import hxcodec.flixel.FlxVideoSprite;
+#if hxvlc
+import hxvlc.flixel.FlxVideoSprite;
 #end
 
 /**
@@ -25,7 +25,7 @@ class VideoCutscene
   #if html5
   static var vid:FlxVideo;
   #end
-  #if hxCodec
+  #if hxvlc
   static var vid:FlxVideoSprite;
   #end
 
@@ -93,7 +93,7 @@ class VideoCutscene
 
     #if html5
     playVideoHTML5(rawFilePath);
-    #elseif hxCodec
+    #elseif hxvlc
     playVideoNative(rawFilePath);
     #else
     throw "No video support for this platform!";
@@ -102,7 +102,7 @@ class VideoCutscene
 
   public static function isPlaying():Bool
   {
-    #if (html5 || hxCodec)
+    #if (html5 || hxvlc)
     return vid != null;
     #else
     return false;
@@ -135,7 +135,7 @@ class VideoCutscene
   }
   #end
 
-  #if hxCodec
+  #if hxvlc
   static function playVideoNative(filePath:String):Void
   {
     // Video displays OVER the FlxState.
@@ -152,16 +152,17 @@ class VideoCutscene
       PlayState.instance.add(vid);
 
       PlayState.instance.refresh();
-      vid.play(filePath, false);
+
+      if (vid.load(filePath)) vid.play();
 
       // Resize videos bigger or smaller than the screen.
-      vid.bitmap.onTextureSetup.add(() -> {
-        vid.setGraphicSize(FlxG.width, FlxG.height);
-        vid.updateHitbox();
-        vid.x = 0;
-        vid.y = 0;
-        // vid.scale.set(0.5, 0.5);
-      });
+      // vid.bitmap.onTextureSetup.add(() -> {
+      vid.setGraphicSize(FlxG.width, FlxG.height);
+      vid.updateHitbox();
+      vid.x = 0;
+      vid.y = 0;
+      // vid.scale.set(0.5, 0.5);
+      // });
 
       onVideoStarted.dispatch();
     }
@@ -182,7 +183,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       // Seek to the start of the video.
@@ -208,7 +209,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       vid.pause();
@@ -227,7 +228,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       vid.visible = false;
@@ -246,7 +247,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       vid.visible = true;
@@ -265,7 +266,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       vid.resume();
@@ -292,7 +293,7 @@ class VideoCutscene
     }
     #end
 
-    #if hxCodec
+    #if hxvlc
     if (vid != null)
     {
       vid.stop();
@@ -300,7 +301,7 @@ class VideoCutscene
     }
     #end
 
-    #if (html5 || hxCodec)
+    #if (html5 || hxvlc)
     vid.destroy();
     vid = null;
     #end

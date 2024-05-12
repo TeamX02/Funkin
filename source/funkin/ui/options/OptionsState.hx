@@ -57,6 +57,10 @@ class OptionsState extends MusicBeatState
 
     // disable for intro transition
     currentPage.enabled = false;
+
+    #if mobile
+    addVirtualPad(UP_DOWN, A);
+    #end
     super.create();
   }
 
@@ -191,6 +195,9 @@ class OptionsMenu extends Page
     add(items = new TextMenuList());
     createItem("PREFERENCES", function() switchPage(Preferences));
     createItem("CONTROLS", function() switchPage(Controls));
+    createItem("MOBILE CONTROLS", function() {
+      FlxG.state.openSubState(new mobile.MobileControlsSubState());
+    });
     createItem("INPUT OFFSETS", function() {
       FlxG.state.openSubState(new LatencyState());
     });

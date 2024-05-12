@@ -13,6 +13,12 @@ import funkin.modding.PolymodHandler;
 import funkin.util.SortUtil;
 import flixel.util.FlxSort;
 import funkin.input.Controls;
+#if mobile
+import mobile.flixel.FlxVirtualPad;
+import flixel.FlxCamera;
+import flixel.input.actions.FlxActionInput;
+import flixel.util.FlxDestroyUtil;
+#end
 
 /**
  * MusicBeatSubState reincorporates the functionality of MusicBeatState into an FlxSubState.
@@ -48,6 +54,41 @@ class MusicBeatSubState extends FlxSubState implements IEventHandler
   inline function get_controls():Controls
     return PlayerSettings.player1.controls;
 
+  #if mobile
+  var virtualPad:FlxVirtualPad;
+  var trackedInputsVirtualPad:Array<FlxActionInput> = [];
+
+  public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+  {
+    if (virtualPad != null) removeVirtualPad();
+
+    virtualPad = new FlxVirtualPad(DPad, Action);
+    add(virtualPad);
+
+    controls.setVirtualPadUI(virtualPad, DPad, Action);
+    trackedInputsVirtualPad = controls.trackedInputsUI;
+    controls.trackedInputsUI = [];
+  }
+
+  public function removeVirtualPad()
+  {
+    if (trackedInputsVirtualPad != []) controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+
+    if (virtualPad != null) remove(virtualPad);
+  }
+
+  public function addVirtualPadCamera(DefaultDrawTarget:Bool = true)
+  {
+    if (virtualPad != null)
+    {
+      var camControls:FlxCamera = new FlxCamera();
+      FlxG.cameras.add(camControls, DefaultDrawTarget);
+      camControls.bgColor.alpha = 0;
+      virtualPad.cameras = [camControls];
+    }
+  }
+  #end
+
   override function create():Void
   {
     super.create();
@@ -60,7 +101,19 @@ class MusicBeatSubState extends FlxSubState implements IEventHandler
 
   public override function destroy():Void
   {
+    #if mobile
+    if (trackedInputsVirtualPad != []) controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+    #end
+
     super.destroy();
+
+    #if mobile
+    if (virtualPad != null)
+    {
+      virtualPad = FlxDestroyUtil.destroy(virtualPad);
+      virtualPad = null;
+    }
+    #end
     Conductor.beatHit.remove(this.beatHit);
     Conductor.stepHit.remove(this.stepHit);
   }

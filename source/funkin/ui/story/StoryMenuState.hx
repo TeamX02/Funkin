@@ -315,6 +315,9 @@ class StoryMenuState extends MusicBeatState
 
     handleKeyPresses();
 
+    #if mobile
+    addVirtualPad(LEFT_FULL, A);
+    #end
     super.update(elapsed);
   }
 

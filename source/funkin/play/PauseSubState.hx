@@ -300,6 +300,11 @@ class PauseSubState extends MusicBeatSubState
     metadata.add(metadataPractice);
 
     updateMetadataText();
+
+    #if mobile
+    addVirtualPad(UP_DOWN, A);
+    addVirtualPadCamera(true);
+    #end
   }
 
   /**
