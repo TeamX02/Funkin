@@ -1296,7 +1296,6 @@ class PlayState extends MusicBeatSubState
    *
    * Call this by pressing F5 on a debug build.
    */
-  #if desktop
   override function debug_refreshModules():Void
   {
     // Prevent further gameplay updates, which will try to reference dead objects.
@@ -1348,7 +1347,6 @@ class PlayState extends MusicBeatSubState
     var event:ScriptEvent = new ScriptEvent(CREATE, false);
     ScriptEventDispatcher.callEvent(currentSong, event);
   }
-  #end
 
   override function stepHit():Bool
   {

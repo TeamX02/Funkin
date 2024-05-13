@@ -442,17 +442,17 @@ class BaseCharacter extends Bopper
     {
       case 1:
         return [
-          PlayerSettings.player1.controls.NOTE_LEFT_P,
-          PlayerSettings.player1.controls.NOTE_DOWN_P,
-          PlayerSettings.player1.controls.NOTE_UP_P,
-          PlayerSettings.player1.controls.NOTE_RIGHT_P,
+          PlayerSettings.player1.controls.NOTE_LEFT,
+          PlayerSettings.player1.controls.NOTE_DOWN,
+          PlayerSettings.player1.controls.NOTE_UP,
+          PlayerSettings.player1.controls.NOTE_RIGHT,
         ].contains(true);
       case 2:
         return [
-          PlayerSettings.player2.controls.NOTE_LEFT_P,
-          PlayerSettings.player2.controls.NOTE_DOWN_P,
-          PlayerSettings.player2.controls.NOTE_UP_P,
-          PlayerSettings.player2.controls.NOTE_RIGHT_P,
+          PlayerSettings.player2.controls.NOTE_LEFT,
+          PlayerSettings.player2.controls.NOTE_DOWN,
+          PlayerSettings.player2.controls.NOTE_UP,
+          PlayerSettings.player2.controls.NOTE_RIGHT,
         ].contains(true);
     }
     return false;

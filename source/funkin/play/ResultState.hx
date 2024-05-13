@@ -170,13 +170,11 @@ class ResultState extends MusicBeatSubState
 
     timerThenSongName();
 
-    #if desktop
     songName.shader = maskShaderSongName;
     difficulty.shader = maskShaderDifficulty;
 
     // maskShaderSongName.swagMaskX = difficulty.x - 15;
     maskShaderDifficulty.swagMaskX = difficulty.x - 15;
-    #end
 
     var blackTopBar:FlxSprite = new FlxSprite().loadGraphic(Paths.image("resultScreen/topBarBlack"));
     blackTopBar.y = -blackTopBar.height;
@@ -360,9 +358,7 @@ class ResultState extends MusicBeatSubState
   override function update(elapsed:Float):Void
   {
     // maskShaderSongName.swagSprX = songName.x;
-    #if desktop
     maskShaderDifficulty.swagSprX = difficulty.x;
-    #end
 
     if (movingSongStuff)
     {

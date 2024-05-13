@@ -28,10 +28,7 @@ class ReloadAssetsDebugPlugin extends FlxBasic
     if (FlxG.keys.justPressed.F5)
     #end
     {
-      #if desktop
       funkin.modding.PolymodHandler.forceReloadAssets();
-      #end
-
       // Create a new instance of the current state, so old data is cleared.
       FlxG.resetState();
     }
