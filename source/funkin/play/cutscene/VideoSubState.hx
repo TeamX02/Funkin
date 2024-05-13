@@ -1,4 +1,4 @@
-package;
+package funkin.play.cutscene;
 
 //	Isso foi feito para ser usado naqueles vídeos que não nescessariamente trocam de state
 //  por Matheus Silver
