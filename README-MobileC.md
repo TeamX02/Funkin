@@ -11,7 +11,7 @@ The things im using when i port a mod to android
 * [Android Studio](https://developer.android.com/studio) - I recomend you to download the latest version
 * [NDK](https://developer.android.com/ndk/downloads/older_releases?hl=fi) - Download the version `r21e` (This is the version recomended by Lime)
 
-2. Install JDK, Android Studio 
+2. Install JDK, Android Studio
 Unzip the NDK (the NDK does not need to be installed because its a zip archive)
 
 3. We need to set up Android Studio for this go to android studio and find android sdk (in settings -> Appearance & Behavior -> system settings -> android sdk)
@@ -321,7 +321,7 @@ With
 		#else
 		forEachBound(control, function(action, _) removeKeys(action, keys));
 		#end
-	}	
+	}
 	#end
 ```
 

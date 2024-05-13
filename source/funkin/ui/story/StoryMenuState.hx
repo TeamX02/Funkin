@@ -315,9 +315,6 @@ class StoryMenuState extends MusicBeatState
 
     handleKeyPresses();
 
-    #if mobile
-    addVirtualPad(LEFT_FULL, A);
-    #end
     super.update(elapsed);
   }
 
@@ -638,5 +635,8 @@ class StoryMenuState extends MusicBeatState
     var levelScore:Null<SaveScoreData> = Save.instance.getLevelScore(currentLevelId, currentDifficultyId);
     highScore = levelScore?.score ?? 0;
     // levelScore.accuracy
+    #if mobile
+    addVirtualPad(LEFT_FULL, A);
+    #end
   }
 }

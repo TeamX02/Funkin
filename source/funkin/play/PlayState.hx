@@ -55,6 +55,7 @@ import funkin.save.Save;
 import funkin.ui.debug.charting.ChartEditorState;
 import funkin.ui.debug.stage.StageOffsetSubState;
 import funkin.ui.mainmenu.MainMenuState;
+import funkin.ui.MusicBeatState;
 import funkin.ui.MusicBeatSubState;
 import funkin.ui.options.PreferencesMenu;
 import funkin.ui.story.StoryMenuState;
@@ -681,6 +682,11 @@ class PlayState extends MusicBeatSubState
       initMinimalMode();
     }
     initStrumlines();
+
+    #if mobile
+    addMobileControls(false);
+    mobileControls.visible = true;
+    #end
 
     // Initialize the judgements and combo meter.
     comboPopUps = new PopUpStuff();
