@@ -1,5 +1,6 @@
 package funkin.input;
 
+import mobile.flixel.FlxHitbox;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.util.FlxDirectionFlags;
 import flixel.FlxObject;
@@ -18,13 +19,12 @@ import flixel.input.mouse.FlxMouseButton.FlxMouseButtonID;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
+import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import lime.ui.Haptic;
-#if mobile
 import mobile.flixel.FlxButton;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
-#end
 
 /**
  * A core class which handles receiving player input and interpreting it into game actions.
@@ -326,7 +326,6 @@ class Controls extends FlxActionSet
     setKeyboardScheme(scheme, false);
   }
 
-  #if mobile
   public var trackedInputsUI:Array<FlxActionInput> = [];
   public var trackedInputsNOTES:Array<FlxActionInput> = [];
 
@@ -455,7 +454,6 @@ class Controls extends FlxActionSet
       }
     }
   }
-  #end
 
   override function update()
   {

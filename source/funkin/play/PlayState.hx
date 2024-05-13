@@ -683,10 +683,10 @@ class PlayState extends MusicBeatSubState
     }
     initStrumlines();
 
-    #if mobile
-    addMobileControls(false);
-    mobileControls.visible = true;
-    #end
+    // var superClass = Type.getClass<MusicBeatState>();
+    // Dps tentar isso
+    Reflect.field(this, "addMobileControls")(false);
+    Reflect.field(this, "mobileControls").visible = true;
 
     // Initialize the judgements and combo meter.
     comboPopUps = new PopUpStuff();

@@ -14,13 +14,11 @@ import funkin.modding.events.ScriptEvent;
 import funkin.modding.module.ModuleHandler;
 import funkin.util.SortUtil;
 import funkin.input.Controls;
-#if mobile
 import mobile.MobileControls;
 import mobile.flixel.FlxVirtualPad;
 import flixel.FlxCamera;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
-#end
 
 /**
  * MusicBeatState actually represents the core utility FlxState of the game.
@@ -33,7 +31,6 @@ class MusicBeatState extends FlxTransitionableState implements IEventHandler
   inline function get_controls():Controls
     return PlayerSettings.player1.controls;
 
-  #if mobile
   public var mobileControls:MobileControls;
 
   var virtualPad:FlxVirtualPad;
@@ -88,7 +85,7 @@ class MusicBeatState extends FlxTransitionableState implements IEventHandler
     add(mobileControls);
   }
 
-  public function removeMobileControls()
+  function removeMobileControls()
   {
     if (trackedInputsMobileControls != []) controls.removeVirtualControlsInput(trackedInputsMobileControls);
 
@@ -105,7 +102,6 @@ class MusicBeatState extends FlxTransitionableState implements IEventHandler
       virtualPad.cameras = [camControls];
     }
   }
-  #end
 
   public var leftWatermarkText:FlxText = null;
   public var rightWatermarkText:FlxText = null;
