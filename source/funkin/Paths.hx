@@ -114,7 +114,7 @@ class Paths
 
   public static function videos(key:String, ?library:String):String
   {
-    return getPath(Asset2File.getPath('videos/$key.${Constants.EXT_VIDEO})'), BINARY, library ?? 'videos');
+    return getPath('videos/$key.${Constants.EXT_VIDEO}', BINARY, library ?? 'videos');
   }
 
   public static function voices(song:String, ?suffix:String = ''):String

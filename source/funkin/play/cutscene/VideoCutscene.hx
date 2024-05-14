@@ -11,7 +11,7 @@ import flixel.util.FlxTimer;
 import funkin.graphics.video.FlxVideo;
 #end
 #if hxCodec
-import funkin.play.cutscene.VideoSprite;
+import hxcodec.flixel.FlxVideoSprite;
 #end
 
 /**
@@ -26,7 +26,7 @@ class VideoCutscene
   static var vid:FlxVideo;
   #end
   #if hxCodec
-  static var vid:VideoSprite;
+  static var vid:FlxVideoSprite;
   #end
 
   /**
@@ -139,7 +139,7 @@ class VideoCutscene
   static function playVideoNative(filePath:String):Void
   {
     // Video displays OVER the FlxState.
-    vid = new VideoSprite(0, 0);
+    vid = new FlxVideoSprite(0, 0);
 
     if (vid != null)
     {

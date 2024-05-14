@@ -3,8 +3,8 @@ package funkin.ui.title;
 #if html5
 import funkin.graphics.video.FlxVideo;
 #end
-#if hxvlc
-import hxvlc.flixel.FlxVideoSprite;
+#if hxCodec
+import hxcodec.flixel.FlxVideoSprite;
 #end
 import funkin.ui.MusicBeatState;
 
