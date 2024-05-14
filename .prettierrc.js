@@ -1,6 +1,6 @@
 /**
  * Configuration for JSON file formatting.
- */
+
 module.exports = {
   // Line width before Prettier tries to add new lines.
   printWidth: 80,
@@ -19,3 +19,4 @@ module.exports = {
   trailingComma: "none", // No trailing commas.
   semi: false, // No semicolons at ends of statements.
 };
+ */
