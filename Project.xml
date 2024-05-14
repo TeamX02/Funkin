@@ -103,6 +103,7 @@
 	-->
 	<assets path="assets/fonts" embed="true" />
 	<assets path="mobile" rename="assets/mobile" if="mobile" />
+	<define name="mobileC" if="mobile" />
 
 	<!-- If compiled via github actions, show debug version number. -->
 	<define name="FORCE_DEBUG_VERSION" if="GITHUB_BUILD" />
