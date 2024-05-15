@@ -2039,6 +2039,19 @@ class PlayState extends MusicBeatSubState
     inputPressQueue.push(event);
   }
 
+  //Medida de segurança, pois não sei como o resto do jooj responderia se eu tornasse a função de cima pública.
+  public onHitboxPress(event:PreciseInputEvent):Void
+  {
+      if (isGamePaused) return;
+      inputPressQueue.push(event);
+  }
+
+  public onHitboxRelease(event:PreciseInputEvent):Void
+  {
+    if (isGamePaused) return;
+    inputReleaseQueue.push(event);
+  }
+
   /**
    * Callback executed when one of the note keys is released.
    */

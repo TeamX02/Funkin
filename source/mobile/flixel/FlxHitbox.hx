@@ -14,10 +14,18 @@ import mobile.flixel.FlxButton;
  */
 class FlxHitbox extends FlxSpriteGroup
 {
-	public var buttonLeft:FlxButton = new FlxButton(0, 0);
-	public var buttonDown:FlxButton = new FlxButton(0, 0);
-	public var buttonUp:FlxButton = new FlxButton(0, 0);
-	public var buttonRight:FlxButton = new FlxButton(0, 0);
+  private final noteDirections:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
+	private var buttonsArray:Array<FlxButton>;
+  private final colorsArray:Array<Int> = [0xFF00FF, 0x00FFFF, 0x00FF00, 0xFF0000];
+
+	private function generateHitbox(numberOfHitbox:Int=4):Array<FlxButton>
+	{
+    for (i in 0...numberOfHitbox){
+      var hitbox:FlxButton = createHint((FlxG.width / numberOfHitbox) * i, 0, Std.int((FlxG.width / numberOfHitbox) * i), FlxG.height, i);
+			buttonsArray.push(hitbox);
+		}
+		return buttonsArray;
+	}
 
 	/**
 	 * Create the zone.
@@ -26,11 +34,8 @@ class FlxHitbox extends FlxSpriteGroup
 	{
 		super();
 
-		add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FF));
-		add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FFFF));
-		add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FF00));
-		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF0000));
-
+		var hitboxArray:Array<FlxButton> = generateHitbox();
+    for (hitbox in hitboxArray){add(hitbox);}
 		scrollFactor.set();
 	}
 
@@ -40,11 +45,8 @@ class FlxHitbox extends FlxSpriteGroup
 	override function destroy()
 	{
 		super.destroy();
+    funkin.util.Utils.clearArray(buttonsArray);
 
-		buttonLeft = null;
-		buttonDown = null;
-		buttonUp = null;
-		buttonRight = null;
 	}
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
@@ -60,24 +62,31 @@ class FlxHitbox extends FlxSpriteGroup
 		return bitmap;
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, direction:Int):FlxButton
 	{
 		var hint:FlxButton = new FlxButton(X, Y);
-		hint.loadGraphic(createHintGraphic(Width, Height, Color));
+		hint.loadGraphic(createHintGraphic(Width, Height, colorsArray[direction]));
 		hint.solid = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
+		hint.ID = direction;
+
+		var direction:Int = direction; //É aqui que usaremos pra saber pra onde a hitbox está apontada.
+
 		hint.onDown.callback = function()
 		{
-			if (hint.alpha != 0.2)
-				hint.alpha = 0.2;
+			if (hint.alpha != 0.2)					hint.alpha = 0.2;
+
+      if (PlayState.instance != null) funkin.play.PlayState.instance.onHitboxPress(formatHit(hint.ID));
 		}
 		hint.onUp.callback = function()
 		{
-			if (hint.alpha != 0.00001)
-				hint.alpha = 0.00001;
+			if (hint.alpha != 0.00001)			hint.alpha = 0.00001;
+
+			if (PlayState.instance!= null)	funkin.play.PlayState.instance.onHitboxRelease(formatHit(hint.ID));
 		}
+
 		hint.onOut.callback = hint.onUp.callback;
 		hint.onOver.callback = hint.onDown.callback;
 		#if FLX_DEBUG
@@ -85,4 +94,11 @@ class FlxHitbox extends FlxSpriteGroup
 		#end
 		return hint;
 	}
+
+  private function formatHit(direction:Int):PreciseInputEvent
+  {
+    var hitTime:Int64 = getCurrentTimestamp();
+    var noteDir:NoteDirection = noteDirections[direction];
+    return new PreciseInputEvent(hitTime, noteDir);
+  }
 }

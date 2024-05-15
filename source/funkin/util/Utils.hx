@@ -39,6 +39,17 @@ enum FlxScrollbarOrientation
  */
 class Utils
 {
+  //X02 NESCESSITAMOS DESCRIÇÃO URGENTEMENTE, EU NÃO SEI O QUE ESSA FUNÇÃO FAZ OMAGAAAAAAAAAA :fist::pensive:
+  public static function clearArray(arr:Array<Dynamic>) // Usado pois não gosto da hitbox do Saw, mas to com preguiça de mudar a forma como as hitbox funcionam...
+  {
+    #if cpp
+    arr.splice(0, arr.length);
+    #else
+    untyped arr.length = 0;
+    #end
+  }
+
+
   /**
    * Lê o conteúdo de um arquivo.
    * @param id Arquivo que será lido pela função
