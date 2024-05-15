@@ -346,10 +346,10 @@ class Controls extends FlxActionSet
 
   public function setHitBox(Hitbox:FlxHitbox)
   {
-    inline forEachBound(Control.NOTE_UP, (action, state) -> addButtonNOTES(action, Hitbox.buttonUp, state));
-    inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES(action, Hitbox.buttonDown, state));
-    inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButtonNOTES(action, Hitbox.buttonLeft, state));
-    inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButtonNOTES(action, Hitbox.buttonRight, state));
+    inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButtonNOTES(action, Hitbox.buttonsArray[0], state));
+    inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButtonNOTES(action, Hitbox.buttonsArray[1], state));
+    inline forEachBound(Control.NOTE_UP, (action, state) -> addButtonNOTES(action, Hitbox.buttonsArray[2], state));
+    inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButtonNOTES(action, Hitbox.buttonsArray[3], state));
   }
 
   public function setVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode)
@@ -666,12 +666,17 @@ class Controls extends FlxActionSet
           action.inputs[i].inputID = toAdd;
         }
         hasReplaced = true;
-      } else if (input.device == KEYBOARD && input.inputID == toAdd) {
+      }
+      else if (input.device == KEYBOARD && input.inputID == toAdd)
+      {
         // This key is already bound!
-        if (hasReplaced) {
+        if (hasReplaced)
+        {
           // Remove the duplicate keybind, don't replace.
           action.inputs.remove(input);
-        } else {
+        }
+        else
+        {
           hasReplaced = true;
         }
       }
@@ -1185,9 +1190,12 @@ class Controls extends FlxActionSet
       var inputs = getInputsFor(control, device);
       isEmpty = isEmpty && inputs.length == 0;
 
-      if (inputs.length == 0) {
+      if (inputs.length == 0)
+      {
         inputs = [FlxKey.NONE];
-      } else {
+      }
+      else
+      {
         inputs = inputs.unique();
       }
 

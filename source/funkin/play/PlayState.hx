@@ -2060,14 +2060,14 @@ class PlayState extends MusicBeatSubState
     inputPressQueue.push(event);
   }
 
-  //Medida de segurança, pois não sei como o resto do jooj responderia se eu tornasse a função de cima pública.
-  public onHitboxPress(event:PreciseInputEvent):Void
+  // Medida de segurança, pois não sei como o resto do jooj responderia se eu tornasse a função de cima pública.
+  public function onHitboxPress(event:PreciseInputEvent):Void
   {
-      if (isGamePaused) return;
-      inputPressQueue.push(event);
+    if (isGamePaused) return;
+    inputPressQueue.push(event);
   }
 
-  public onHitboxRelease(event:PreciseInputEvent):Void
+  public function onHitboxRelease(event:PreciseInputEvent):Void
   {
     if (isGamePaused) return;
     inputReleaseQueue.push(event);
