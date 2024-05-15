@@ -638,7 +638,8 @@ class FreeplayState extends MusicBeatSubState
 
     changeSelection();
     #if mobile
-    addVirtualPad(UP_DOWN, A_B);
+    addVirtualPad(LEFT_FULL, A_B);
+    addVirtualPadCamera(false);
     #end
     changeDiff(0, true);
   }
@@ -1175,7 +1176,7 @@ class FreeplayState extends MusicBeatSubState
           #if (debug || FORCE_DEBUG_VERSION)
           botPlayMode: FlxG.keys.pressed.SHIFT,
           #else
-          botPlayMode: true,
+          botPlayMode: false,
           #end
           // TODO: Make these an option! It's currently only accessible via chart editor.
           // startTimestamp: 0.0,

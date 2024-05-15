@@ -637,6 +637,7 @@ class StoryMenuState extends MusicBeatState
     // levelScore.accuracy
     #if mobile
     addVirtualPad(LEFT_FULL, A);
+    addVirtualPadCamera(false);
     #end
   }
 }

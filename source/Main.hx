@@ -1,9 +1,5 @@
 package; // x02 esteve aqui
 
-#if android
-import android.content.Context;
-import android.os.Build;
-#end
 import flixel.FlxGame;
 import flixel.FlxState;
 import funkin.save.Save;

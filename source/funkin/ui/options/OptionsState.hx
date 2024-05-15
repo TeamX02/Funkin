@@ -60,6 +60,7 @@ class OptionsState extends MusicBeatState
 
     #if mobile
     addVirtualPad(UP_DOWN, A);
+    addVirtualPadCamera(false);
     #end
     super.create();
   }
@@ -195,9 +196,6 @@ class OptionsMenu extends Page
     add(items = new TextMenuList());
     createItem("PREFERENCES", function() switchPage(Preferences));
     createItem("CONTROLS", function() switchPage(Controls));
-    createItem("MOBILE CONTROLS", function() {
-      FlxG.state.openSubState(new mobile.MobileControlsSubState());
-    });
     createItem("INPUT OFFSETS", function() {
       FlxG.state.openSubState(new LatencyState());
     });

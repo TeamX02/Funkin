@@ -27,9 +27,10 @@ class FlxHitbox extends FlxSpriteGroup
 
   private function generateHitbox(numberOfHitbox:Int = 4):Array<FlxButton>
   {
+    buttonsArray = [];
     for (i in 0...numberOfHitbox)
     {
-      var hitbox:FlxButton = createHint((FlxG.width / numberOfHitbox) * i, 0, Std.int((FlxG.width / numberOfHitbox) * i), FlxG.height, i);
+      var hitbox:FlxButton = createHint((FlxG.width / numberOfHitbox) * i, 0, Std.int((FlxG.width / numberOfHitbox)), FlxG.height, i);
       buttonsArray.push(hitbox);
     }
     return buttonsArray;
@@ -42,6 +43,7 @@ class FlxHitbox extends FlxSpriteGroup
   {
     super();
 
+    buttonsArray = [];
     var hitboxArray:Array<FlxButton> = generateHitbox();
     for (hitbox in hitboxArray)
     {

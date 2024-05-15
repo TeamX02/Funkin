@@ -309,6 +309,10 @@ class ResultState extends MusicBeatSubState
       }
     });
 
+    #if mobileC
+    addVirtualPad(NONE, A);
+    #end
+
     super.create();
   }
 
