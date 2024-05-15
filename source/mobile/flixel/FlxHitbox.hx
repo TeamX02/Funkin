@@ -21,7 +21,7 @@ class FlxHitbox extends FlxSpriteGroup
 {
   private final noteDirection:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
 
-  public static var buttonsArray:Array<FlxButton>;
+  public var buttonsArray:Array<FlxButton>;
 
   private final colorsArray:Array<Int> = [0xFF00FF, 0x00FFFF, 0x00FF00, 0xFF0000];
 
