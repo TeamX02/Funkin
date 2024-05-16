@@ -33,7 +33,7 @@ class AttractState extends MusicBeatState
     playVideoHTML5(ATTRACT_VIDEO_PATH);
     #end
 
-    #if hxvlc
+    #if hxCodec
     trace('Playing native video ${ATTRACT_VIDEO_PATH}');
     playVideoNative(ATTRACT_VIDEO_PATH);
     #end
@@ -61,7 +61,7 @@ class AttractState extends MusicBeatState
   }
   #end
 
-  #if hxvlc
+  #if hxCodec
   var vid:FlxVideoSprite;
 
   function playVideoNative(filePath:String):Void
@@ -109,7 +109,7 @@ class AttractState extends MusicBeatState
     }
     #end
 
-    #if hxvlc
+    #if hxCodec
     if (vid != null)
     {
       vid.stop();
@@ -117,7 +117,7 @@ class AttractState extends MusicBeatState
     }
     #end
 
-    #if (html5 || hxvlc)
+    #if (html5 || hxCodec)
     vid.destroy();
     vid = null;
     #end

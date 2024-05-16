@@ -171,9 +171,9 @@
       "args": ["-debug", "-DANIMDEBUG", "-DFORCE_DEBUG_VERSION"]
     },
     {
-      "label": "Windows / Debug (Debug hxvlc)",
+      "label": "Windows / Debug (Debug hxCodec)",
       "target": "windows",
-      "args": ["-debug", "-DHXVLC_LOGGING", "-DFORCE_DEBUG_VERSION"]
+      "args": ["-debug", "-DhxCodec_LOGGING", "-DFORCE_DEBUG_VERSION"]
     },
     {
       "label": "HashLink / Debug (Straight to Animation Editor)",
@@ -280,9 +280,9 @@
       "args": ["-debug", "-DANIMDEBUG", "-DFORCE_DEBUG_VERSION"]
     },
     {
-      "label": "android / Debug (Debug hxvlc)",
+      "label": "android / Debug (Debug hxCodec)",
       "target": "android",
-      "args": ["-debug", "-DHXVLC_LOGGING", "-DFORCE_DEBUG_VERSION"]
+      "args": ["-debug", "-DhxCodec_LOGGING", "-DFORCE_DEBUG_VERSION"]
     },
     {
       "label": "android / Debug (Latency Test)",

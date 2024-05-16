@@ -13,6 +13,10 @@ import openfl.events.Event;
 import openfl.media.Video;
 import openfl.net.NetStream;
 import funkin.util.SUtil;
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 
 /**
  * The main class which initializes HaxeFlixel and starts the game in its initial state.
@@ -36,6 +40,13 @@ class Main extends Sprite
 
   public static function main():Void
   {
+    #if android
+    // serve pra definir o diretório atual q vai ser usado em dispositivos Android
+    // Determina o diretório apropriado com base na versão do Android
+    Sys.setCwd(haxe.io.Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : // Usar a pasta Obb para o Android SDK versão > 30
+      android.content.Context.getExternalFilesDir() // Usar o pasta externa para o Android SDK versão <= 30
+    ));
+    #end
     // We need to make the crash handler LITERALLY FIRST so nothing EVER gets past it.
     CrashHandler.initialize();
     CrashHandler.queryStatus();
