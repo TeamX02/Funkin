@@ -1,8 +1,8 @@
 package funkin.play;
 
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
@@ -14,13 +14,12 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.data.song.SongRegistry;
-import funkin.ui.freeplay.FreeplayState;
 import funkin.graphics.FunkinSprite;
-import funkin.play.cutscene.VideoCutscene;
 import funkin.play.PlayState;
 import funkin.ui.AtlasText;
-import funkin.ui.debug.latency.LatencyState;
 import funkin.ui.MusicBeatSubState;
+import funkin.ui.debug.latency.LatencyState;
+import funkin.ui.freeplay.FreeplayState;
 import funkin.ui.transition.StickerSubState;
 
 /**
@@ -76,8 +75,6 @@ class PauseSubState extends MusicBeatSubState
    */
   static final PAUSE_MENU_ENTRIES_VIDEO_CUTSCENE:Array<PauseMenuEntry> = [
     {text: 'Resume', callback: resume},
-    {text: 'Skip Cutscene', callback: skipVideoCutscene},
-    {text: 'Restart Cutscene', callback: restartVideoCutscene},
     {text: 'Exit to Menu', callback: quitToMenu},
   ];
 
@@ -543,10 +540,7 @@ class PauseSubState extends MusicBeatSubState
    * @param state The current PauseSubState.
    */
   static function resume(state:PauseSubState):Void
-  {
-    // Resume a paused video if it exists.
-    VideoCutscene.resumeVideo();
-
+  { // there is no way to pause with the webview player
     state.close();
   }
 
@@ -603,26 +597,6 @@ class PauseSubState extends MusicBeatSubState
 
     PlayState.instance.isPracticeMode = true;
     state.regenerateMenu();
-  }
-
-  /**
-   * Restart the paused video cutscene, then resume the game.
-   * @param state The current PauseSubState.
-   */
-  static function restartVideoCutscene(state:PauseSubState):Void
-  {
-    VideoCutscene.restartVideo();
-    state.close();
-  }
-
-  /**
-   * Skip the paused video cutscene, then resume the game.
-   * @param state The current PauseSubState.
-   */
-  static function skipVideoCutscene(state:PauseSubState):Void
-  {
-    VideoCutscene.finishVideo();
-    state.close();
   }
 
   /**
