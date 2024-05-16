@@ -65,6 +65,7 @@ import lime.ui.Haptic;
 import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
+import funkin.play.cutscene.VideoSubState;
 #if discord_rpc
 import Discord.DiscordClient;
 #end
@@ -149,7 +150,7 @@ class PlayState extends MusicBeatSubState
    */
   public static var instance:PlayState = null;
 
-  public static var sex:CutsceneType = ENDINGSONG; // IGNORA ESSA PORRA
+  public static var sex:CutsceneType = ENDING; // IGNORA ESSA PORRA
 
   /**
    * This sucks. We need this because FlxG.resetState(); assumes the constructor has no arguments.
@@ -1272,7 +1273,7 @@ class PlayState extends MusicBeatSubState
     }
     else if (Std.isOfType(subState, VideoSubState))
     {
-      if (sex != ENDINGSONG)
+      if (sex != ENDING)
       {
         startCountdown();
         #if discord_rpc
@@ -1287,7 +1288,7 @@ class PlayState extends MusicBeatSubState
         }
         #end
       }
-      else if (sex = ENDINGSONG)
+      else if (sex == ENDING)
       {
         var event:ScriptEvent = new ScriptEvent(RESUME, true);
 
@@ -1542,7 +1543,6 @@ class PlayState extends MusicBeatSubState
   public override function destroy():Void
   {
     performCleanup();
-    comecarvideo("jose");
     super.destroy();
   }
 

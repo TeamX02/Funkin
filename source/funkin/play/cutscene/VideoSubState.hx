@@ -1,14 +1,15 @@
-package;
+package funkin.play.cutscene;
 
-//	Isso foi feito para ser usado naqueles vídeos que não nescessariamente trocam de state (cutscene da gf corrompida, monika codin, etc...)
+// This was made to be used in those videos that don't necessarily change states (corrupted GF cutscene, Monika coding, etc...)
 #if mobile
 import extension.webview.WebView;
 import flixel.FlxG;
 import flixel.text.FlxText;
+import funkin.ui.MusicBeatSubState;
 
 using StringTools;
 
-class VideoSubState extends MusicBeatSubstate
+class VideoSubState extends MusicBeatSubState
 {
   public static var androidPath:String = 'file:///android_asset/';
 
@@ -28,38 +29,49 @@ class VideoSubState extends MusicBeatSubstate
 
     WebView.onClose = onClose;
     WebView.onURLChanging = onURLChanging;
-    source.replace('.mp4', '');
+    source = source.replace('.mp4', '');
     WebView.open(androidPath + source + '.html', false, null, ['http://exitme(.*)']);
   }
 
   public override function update(dt:Float)
   {
-    if (
-      #if android
-      FlxG.android.justReleased.BACK
-      #else
-      ) onClose();
+    #if android
+    if (FlxG.android.justReleased.BACK)
+    {
+      onClose();
+    }
+    #end
 
-      super.update(dt);
-      } function onClose()
+    super.update(dt);
+  }
 
-      { // not working
-        text.alpha = 0;
-        changecount = 0;
-        // FlxG.autoPause = true;
-        trace('aqui cabo!'); // ==11x3 Fnatic :skull:
-        close();
-      }
+  function onClose()
+  {
+    text.alpha = 0;
+    changecount = 0;
+    // FlxG.autoPause = true;
+    trace('aqui cabo!'); // ==11x3 Fnatic :skull:
+    close();
+  }
 
-      function onURLChanging(url:String)
-      {
-        if (changecount == 2) onClose();
-        else
-          changecount++;
-        text.alpha = 1;
-        if (url == 'http://exitme(.*)') // Não tenho certeza sobre isso tambem, mas deve fazer com que o player de vídeo feche sozinho.
-          onClose(); // drity hack lol
-        trace("WebView is about to open: " + url);
-      }
-      }
-      #end
+  function onURLChanging(url:String)
+  {
+    if (changecount == 2)
+    {
+      onClose();
+    }
+    else
+    {
+      changecount++;
+      text.alpha = 1;
+    }
+
+    if (url == 'http://exitme(.*)')
+    { // Not sure about this either, but it should make the video player close by itself.
+      onClose(); // Dirty hack lol
+    }
+
+    trace("WebView is about to open: " + url);
+  }
+}
+#end
