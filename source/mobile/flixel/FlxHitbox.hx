@@ -43,7 +43,6 @@ class FlxHitbox extends FlxSpriteGroup
   {
     super();
 
-    buttonsArray = [];
     var hitboxArray:Array<FlxButton> = generateHitbox();
     for (hitbox in hitboxArray)
     {

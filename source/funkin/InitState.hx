@@ -32,8 +32,6 @@ import funkin.util.CLIUtil;
 import funkin.util.CLIUtil.CLIParams;
 import funkin.util.TimerUtil;
 import funkin.util.TrackerUtil;
-import sys.FileSystem;
-import openfl.utils.Assets;
 #if discord_rpc
 import Discord.DiscordClient;
 #end
@@ -135,22 +133,6 @@ class InitState extends FlxState
     //
     #if android
     FlxG.android.preventDefaultKeys = [flixel.input.android.FlxAndroidKey.BACK];
-
-    funkin.util.Generic.mode = ROOTDATA;
-
-    if (!FileSystem.exists(funkin.util.Generic.returnPath() + 'assets'))
-    {
-      FileSystem.createDirectory(funkin.util.Generic.returnPath() + 'assets');
-    }
-
-    if (!FileSystem.exists(funkin.util.Generic.returnPath() + 'assets/videos/videos'))
-    {
-      FileSystem.createDirectory(funkin.util.Generic.returnPath() + 'assets/videos/videos');
-    }
-    for (file in Assets.list().filter(folder -> folder.startsWith('assets/videos/videos')))
-    {
-      if (file.endsWith(".mp4")) funkin.util.Generic.copyContent(file, file, true);
-    }
     #end
 
     //

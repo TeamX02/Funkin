@@ -384,7 +384,7 @@ class ResultState extends MusicBeatSubState
       speedOfTween.x -= 0.1;
     }
 
-    if (controls.PAUSE)
+    if (controls.PAUSE #if mobile || virtualPad.buttonA.justPressed #end)
     {
       FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.8);
       FlxTween.tween(FlxG.sound.music, {pitch: 3}, 0.1,

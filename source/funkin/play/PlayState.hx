@@ -685,7 +685,7 @@ class PlayState extends MusicBeatSubState
 
     #if mobile
     addMobileControls(false);
-    mobileControls.visible = true;
+    mobileControls.visible = false;
     #end
 
     // Initialize the judgements and combo meter.
@@ -1956,6 +1956,9 @@ class PlayState extends MusicBeatSubState
    */
   function startSong():Void
   {
+    #if mobile
+    mobileControls.visible = true;
+    #end
     startingSong = false;
 
     if (!overrideMusic && !isGamePaused && currentChart != null)
@@ -2809,6 +2812,9 @@ class PlayState extends MusicBeatSubState
     if (FlxG.sound.music != null) FlxG.sound.music.volume = 0;
     vocals.volume = 0;
     mayPauseGame = false;
+    #if mobile
+    mobileControls.visible = false;
+    #end
 
     // Check if any events want to prevent the song from ending.
     var event = new ScriptEvent(SONG_END, true);
