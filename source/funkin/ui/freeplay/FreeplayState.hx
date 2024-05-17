@@ -638,7 +638,7 @@ class FreeplayState extends MusicBeatSubState
 
     changeSelection();
     #if mobile
-    addVirtualPad(LEFT_FULL, A_B);
+    addVirtualPad(NONE, A);
     addVirtualPadCamera(false);
     #end
     changeDiff(0, true);
