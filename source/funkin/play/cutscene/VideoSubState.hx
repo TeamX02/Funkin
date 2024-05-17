@@ -1,16 +1,17 @@
 package funkin.play.cutscene;
 
-// This was made to be used in those videos that don't necessarily change states (corrupted GF cutscene, Monika coding, etc...)
-#if mobile
-import extension.webview.WebView;
-import flixel.FlxG;
-import flixel.text.FlxText;
-import funkin.ui.MusicBeatSubState;
+/*
+  // This was made to be used in those videos that don't necessarily change states (corrupted GF cutscene, Monika coding, etc...)
+  #if mobile
+  import extension.webview.WebView;
+  import flixel.FlxG;
+  import flixel.text.FlxText;
+  import funkin.ui.MusicBeatSubState;
 
-using StringTools;
+  using StringTools;
 
-class VideoSubState extends MusicBeatSubState
-{
+  class VideoSubState extends MusicBeatSubState
+  {
   public static var androidPath:String = 'file:///android_asset/';
 
   var text:FlxText;
@@ -73,5 +74,6 @@ class VideoSubState extends MusicBeatSubState
 
     trace("WebView is about to open: " + url);
   }
-}
-#end
+  }
+  #end
+ */

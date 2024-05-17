@@ -65,7 +65,7 @@ import lime.ui.Haptic;
 import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
-import funkin.play.cutscene.VideoSubState;
+// import funkin.play.cutscene.VideoSubState; unusued
 #if discord_rpc
 import Discord.DiscordClient;
 #end
@@ -1178,9 +1178,7 @@ class PlayState extends MusicBeatSubState
   {
     // If there is a substate which requires the game to continue,
     // then make this a condition.
-    var shouldPause = (Std.isOfType(subState, PauseSubState)
-      || Std.isOfType(subState, GameOverSubState)
-      || Std.isOfType(subState, VideoSubState));
+    var shouldPause = (Std.isOfType(subState, PauseSubState) || Std.isOfType(subState, GameOverSubState));
 
     if (shouldPause)
     {
@@ -1271,74 +1269,6 @@ class PlayState extends MusicBeatSubState
 
       justUnpaused = true;
     }
-    else if (Std.isOfType(subState, VideoSubState))
-    {
-      if (sex != ENDING)
-      {
-        startCountdown();
-        #if discord_rpc
-        if (startTimer.finished)
-        {
-          DiscordClient.changePresence(detailsText, '${currentChart.songName} ($storyDifficultyText)', iconRPC, true,
-            currentSongLengthMs - Conductor.instance.songPosition);
-        }
-        else
-        {
-          DiscordClient.changePresence(detailsText, '${currentChart.songName} ($storyDifficultyText)', iconRPC);
-        }
-        #end
-      }
-      else if (sex == ENDING)
-      {
-        var event:ScriptEvent = new ScriptEvent(RESUME, true);
-
-        dispatchEvent(event);
-
-        if (event.eventCanceled) return;
-
-        // Resume music if we paused it.
-        if (musicPausedBySubState)
-        {
-          FlxG.sound.music.play();
-          musicPausedBySubState = false;
-        }
-
-        // Resume camera tweens if we paused any.
-        for (camTween in cameraTweensPausedBySubState)
-        {
-          camTween.active = true;
-        }
-        cameraTweensPausedBySubState.clear();
-
-        if (currentConversation != null)
-        {
-          currentConversation.resumeMusic();
-        }
-
-        // Re-sync vocals.
-        if (FlxG.sound.music != null && !startingSong && !isInCutscene) resyncVocals();
-
-        // Resume the countdown.
-        Countdown.resumeCountdown();
-
-        #if discord_rpc
-        if (startTimer.finished)
-        {
-          DiscordClient.changePresence(detailsText, '${currentChart.songName} ($storyDifficultyText)', iconRPC, true,
-            currentSongLengthMs - Conductor.instance.songPosition);
-        }
-        else
-        {
-          DiscordClient.changePresence(detailsText, '${currentChart.songName} ($storyDifficultyText)', iconRPC);
-        }
-        #end
-
-        justUnpaused = true;
-
-        endSong(true);
-      }
-      justUnpaused = true;
-    }
     else if (Std.isOfType(subState, Transition))
     {
       // Do nothing.
@@ -1346,6 +1276,28 @@ class PlayState extends MusicBeatSubState
 
     super.closeSubState();
   }
+
+  #if discord_rpc
+  /**
+   * Function called when the game window gains focus.
+   */
+  public override function onFocus():Void
+  {
+    if (health > Constants.HEALTH_MIN && !paused && FlxG.autoPause)
+    {
+      if (Conductor.instance.songPosition > 0.0) DiscordClient.changePresence(detailsText, currentSong.song
+        + ' ('
+        + storyDifficultyText
+        + ')', iconRPC, true,
+        currentSongLengthMs
+        - Conductor.instance.songPosition);
+      else
+        DiscordClient.changePresence(detailsText, currentSong.song + ' (' + storyDifficultyText + ')', iconRPC);
+    }
+
+    super.onFocus();
+  }
+  #end
 
   #if discord_rpc
   /**
