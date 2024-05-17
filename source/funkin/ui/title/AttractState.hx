@@ -6,6 +6,9 @@ import funkin.graphics.video.FlxVideo;
 #if hxCodec
 import hxcodec.flixel.FlxVideoSprite;
 #end
+#if hxvlc
+import hxvlc.flixel.FlxVideoSprite;
+#end
 import funkin.ui.MusicBeatState;
 
 /**
