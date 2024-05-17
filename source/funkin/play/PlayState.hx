@@ -1742,7 +1742,7 @@ class PlayState extends MusicBeatSubState
     add(playerStrumline);
     add(opponentStrumline);
     // Position the player strumline on the right half of the screen
-    playerStrumline.x = FlxG.width / 2 + Constants.STRUMLINE_X_OFFSET; // Classic style
+    playerStrumline.x = Preferences.middlescroll ? FlxG.width / 2 - playerStrumline.width / 2 : FlxG.width / 2 + Constants.STRUMLINE_X_OFFSET; // Classic style
     // playerStrumline.x = FlxG.width - playerStrumline.width - Constants.STRUMLINE_X_OFFSET; // Centered style
     playerStrumline.y = Preferences.downscroll ? FlxG.height - playerStrumline.height - Constants.STRUMLINE_Y_OFFSET : Constants.STRUMLINE_Y_OFFSET;
     playerStrumline.zIndex = 1001;
@@ -1752,6 +1752,12 @@ class PlayState extends MusicBeatSubState
     opponentStrumline.y = Preferences.downscroll ? FlxG.height - opponentStrumline.height - Constants.STRUMLINE_Y_OFFSET : Constants.STRUMLINE_Y_OFFSET;
     opponentStrumline.zIndex = 1000;
     opponentStrumline.cameras = [camHUD];
+
+    for (arrow in opponentStrumline.members)
+		{
+      if(Preferences.middlescroll) arrow.visible = false;
+		}
+
     if (!PlayStatePlaylist.isStoryMode)
     {
       playerStrumline.fadeInArrows();
@@ -2263,7 +2269,7 @@ class PlayState extends MusicBeatSubState
       var input:PreciseInputEvent = inputPressQueue.shift();
       playerStrumline.pressKey(input.noteDirection);
       var notesInDirection:Array<NoteSprite> = notesByDirection[input.noteDirection];
-      if (!Constants.GHOST_TAPPING && notesInDirection.length == 0)
+      if (Preferences.ghosttapping && notesInDirection.length == 0)
       {
         // Pressed a wrong key with no notes nearby.
         // Perform a ghost miss (anti-spam).
@@ -2271,7 +2277,7 @@ class PlayState extends MusicBeatSubState
         // Play the strumline animation.
         playerStrumline.playPress(input.noteDirection);
       }
-      else if (Constants.GHOST_TAPPING && (holdNotesInRange.length + notesInRange.length > 0) && notesInDirection.length == 0)
+      else if (Preferences.ghosttapping && (holdNotesInRange.length + notesInRange.length > 0) && notesInDirection.length == 0)
       {
         // Pressed a wrong key with no notes nearby AND with notes in a different direction available.
         // Perform a ghost miss (anti-spam).

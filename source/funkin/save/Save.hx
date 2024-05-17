@@ -83,6 +83,8 @@ class Save
           // Reasonable defaults.
           naughtyness: true,
           downscroll: false,
+          ghosttapping: true,
+          middlescroll: false,
           flashingLights: true,
           zoomCamera: true,
           debugDisplay: false,
@@ -847,6 +849,18 @@ typedef SaveDataOptions =
    * @default `false`
    */
   var downscroll:Bool;
+
+  /**
+   * Enable to make miss when there arent notes to press.
+   * @default `false`
+   */
+   var ghosttapping:Bool;
+
+  /**
+   * Enable to make notes CENTERED OMG.
+   * @default `false`
+   */
+   var middlescroll:Bool;
 
   /**
    * If disabled, flashing lights in the main menu and other areas will be less intense.
