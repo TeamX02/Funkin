@@ -1499,20 +1499,6 @@ class PlayState extends MusicBeatSubState
   }
 
   /**
-   * Play a video with extension-webview using a substate
-   * @param The video path
-   */
-  function comecarvideo(video:String, after:CutsceneType) // coiso chato...
-  {
-    sex = after;
-    #if mobile
-    persistentUpdate = false;
-    persistentDraw = true;
-    openSubState(new VideoSubState(video));
-    #end
-  }
-
-  /**
    * Handles characters dancing to the beat of the current song.
    *
    * TODO: Move some of this logic into `Bopper.hx`, or individual character scripts.
