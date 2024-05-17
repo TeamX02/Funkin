@@ -309,9 +309,9 @@ class ResultState extends MusicBeatSubState
       }
     });
 
-    #if mobileC
+ /*   #if mobileC
     addVirtualPad(NONE, A);
-    #end
+    #end*/
 
     super.create();
   }
@@ -384,7 +384,16 @@ class ResultState extends MusicBeatSubState
       speedOfTween.x -= 0.1;
     }
 
-    if (controls.PAUSE #if mobile || virtualPad.buttonA.justPressed #end)
+    #if mobile
+    var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+
+    for (touch in FlxG.touches.list)
+    {
+      if (touch.justPressed) pressedEnter = true;
+    }
+    #end  
+
+    if (controls.PAUSE #if mobile || pressedEnter #end)
     {
       FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.8);
       FlxTween.tween(FlxG.sound.music, {pitch: 3}, 0.1,
