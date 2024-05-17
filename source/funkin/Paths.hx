@@ -114,7 +114,7 @@ class Paths
 
   public static function videos(key:String, ?library:String):String
   {
-    return 'videos:assets/videos/$key.${Constants.EXT_VIDEO}';
+    return 'videos:assets/videos/videos/$key.${Constants.EXT_VIDEO}';
   }
 
   public static function voices(song:String, ?suffix:String = ''):String

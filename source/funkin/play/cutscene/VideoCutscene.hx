@@ -79,7 +79,7 @@ class VideoCutscene
       trace('Video file does not exist: ${filePath}');
     }
 
-    var rawFilePath = Paths.stripLibrary(filePath);
+    var rawFilePath = filePath;
 
     // Trigger the cutscene. Don't play the song in the background.
     PlayState.instance.isInCutscene = true;

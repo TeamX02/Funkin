@@ -30,7 +30,7 @@ class VideoSubState extends MusicBeatSubState
     WebView.onClose = onClose;
     WebView.onURLChanging = onURLChanging;
     source = source.replace('.mp4', '');
-    WebView.open(androidPath + source + '.html', false, null, ['http://exitme(.*)']);
+    WebView.open(androidPath + source + '.html', null, ['http://exitme(.*)']);
   }
 
   public override function update(dt:Float)

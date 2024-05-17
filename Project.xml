@@ -128,6 +128,7 @@
 	<haxelib name="hxCodec" if="desktop" /> <!-- Video playback -->
 	<haxelib name="extension-androidtools" if="android" /> <!-- Android Functions -->
 	<haxelib name="extension-webview"/>
+	<haxelib name="hxvlc"/>
 	<haxelib name="funkin.vis"/>
 
 
