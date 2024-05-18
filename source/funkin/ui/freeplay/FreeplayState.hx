@@ -942,7 +942,7 @@ class FreeplayState extends MusicBeatSubState
       generateSongList(currentFilter, true);
     }
 
-    if (controls.BACK)
+    if (controls.BACK#if android || FlxG.android.justReleased.BACK#end)
     {
       busy = true;
       FlxTween.globalManager.clear();
