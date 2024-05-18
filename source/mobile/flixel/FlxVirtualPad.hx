@@ -6,6 +6,9 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
+import funkin.play.notes.NoteDirection;
+import funkin.input.PreciseInputManager;
+import funkin.play.PlayState;
 import mobile.flixel.FlxButton;
 import openfl.utils.Assets;
 
@@ -43,6 +46,8 @@ enum FlxActionMode
  */
 class FlxVirtualPad extends FlxSpriteGroup
 {
+	private final noteDirection:Array<NoteDirection> = [NoteDirection.LEFT, NoteDirection.DOWN, NoteDirection.UP, NoteDirection.RIGHT];
+
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
@@ -195,9 +200,35 @@ class FlxVirtualPad extends FlxSpriteGroup
 		button.scrollFactor.set();
 		button.color = Color;
 		button.alpha = 0.6;
+
+		switch(Graphic){
+			case "left": button.ID = 0;
+			case "down": button.ID = 1;
+			case "up": button.ID = 2;
+			case "right": button.ID = 3;
+		}
+
+		button.onDown.callback = function() {
+		if (PlayState.instance != null) funkin.play.PlayState.instance.onHitboxPress(formatHit(button.ID));
+		}
+		button.onUp.callback = function() {
+		if (PlayState.instance != null) funkin.play.PlayState.instance.onHitboxRelease(formatHit(button.ID));
+		}
+
+		button.onOut.callback = button.onUp.callback;
+        button.onOver.callback = button.onDown.callback;
+
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
 		#end
 		return button;
+	}
+
+	private function formatHit(direction:Int):PreciseInputEvent
+	{
+	    return {
+		timestamp: PreciseInputManager.getCurrentTimestamp(),
+		noteDirection: noteDirection[direction]
+		};
 	}
 }

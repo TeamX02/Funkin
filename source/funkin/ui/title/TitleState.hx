@@ -250,11 +250,14 @@ class TitleState extends MusicBeatState
   }
 
   var transitioning:Bool = false;
+  var canStart:Bool = true;
+  var holding:Bool = false;
+  var coolTimer:FlxTimer;
 
   override function update(elapsed:Float):Void
   {
     FlxG.bitmapLog.add(FlxG.camera.buffer);
-
+    
     #if HAS_PITCH
     if (FlxG.keys.pressed.UP) FlxG.sound.music.pitch += 0.5 * elapsed;
 
@@ -291,12 +294,23 @@ class TitleState extends MusicBeatState
     // do controls.PAUSE | controls.ACCEPT instead?
     var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
-    #if mobile
-    for (touch in FlxG.touches.list)
-    {
-      if (touch.justPressed) pressedEnter = true;
+  #if mobile
+  if (FlxG.touches.list.length == 1) {
+    if (FlxG.touches.list[0].justPressed) holding = true;
+
+    if (holding && FlxG.touches.list[0].justReleased) {
+     pressedEnter = true;
+     holding = false;
     }
-    #end
+  } 
+
+  if (FlxG.touches.list.length >= 2 && !cheatActive && FlxG.touches.list[0].pressed && FlxG.touches.list[1].pressed) { //mucha mierda gaaaa
+    canStart = false;
+    startCheat();
+    coolTimer = new FlxTimer().start(1, function(timer:FlxTimer) {canStart = true;});
+    holding = false;
+  }
+  #end
 
     var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -345,6 +359,7 @@ class TitleState extends MusicBeatState
     if (controls.UI_LEFT) swagShader.update(-elapsed * 0.1);
     if (controls.UI_RIGHT) swagShader.update(elapsed * 0.1);
     if (!cheatActive && skippedIntro) cheatCodeShit();
+
     super.update(elapsed);
   }
 
