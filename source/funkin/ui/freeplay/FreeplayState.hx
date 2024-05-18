@@ -130,6 +130,13 @@ class FreeplayState extends MusicBeatSubState
   var letterSort:LetterSort;
   var exitMovers:ExitMoverData = new Map();
 
+  var TouchAreas = [
+  { name: "DiffArea", x: 0, y: 0, width: 365, height: 720 },
+  { name: "SongArea", x: 376, y: 152, width: 446, height: 569 },
+  { name: "idkArea", x: 384, y: 3, width: 442, height: 130 },
+  { name: "PlayArea", x: 832, y: 3, width: 470, height: 724 }
+  ];
+
   var stickerSubState:StickerSubState;
 
   public static var rememberedDifficulty:Null<String> = Constants.DEFAULT_DIFFICULTY;
@@ -637,10 +644,10 @@ class FreeplayState extends MusicBeatSubState
     rememberSelection();
 
     changeSelection();
-    #if mobile
+    /*#if mobile
     addVirtualPad(NONE, A);
     addVirtualPadCamera(false);
-    #end
+    #end*/
     changeDiff(0, true);
   }
 
@@ -801,7 +808,7 @@ class FreeplayState extends MusicBeatSubState
 
       if (FlxG.touches.getFirst() != null)
       {
-        if (touchTimer >= 1.5) accepted = true;
+        if (touchTimer >= 1.2 && checkArea() == "PlayArea") accepted = true;
 
         touchTimer += elapsed;
         var touch:FlxTouch = FlxG.touches.getFirst();
@@ -821,18 +828,28 @@ class FreeplayState extends MusicBeatSubState
           dxTouch = 0;
         }
 
-        if (Math.abs(dxTouch) >= 100)
+        switch(checkArea())
         {
-          touchX = touch.screenX;
-          if (dxTouch != 0) dxTouch < 0 ? changeDiff(1) : changeDiff(-1);
+          case "DiffArea":
+          if (Math.abs(dxTouch) >= 100)
+          {
+            touchX = touch.screenX;
+            if (dxTouch != 0) dxTouch < 0 ? changeDiff(1) : changeDiff(-1);
+          }
+          case "SongArea":
+          if (Math.abs(dyTouch) >= 100)
+          {
+            touchY = touch.screenY;
+            if (dyTouch != 0) dyTouch < 0 ? changeSelection(1) : changeSelection(-1);
+          }
+          case "idkArea":
+          if (Math.abs(dxTouch) >= 100)
+          {
+            touchX = touch.screenX;
+            if (dxTouch != 0) dxTouch < 0 ? letterSort.changeSelection(1) : letterSort.changeSelection(-1);
+          }
         }
 
-        if (Math.abs(dyTouch) >= 100)
-        {
-          touchY = touch.screenY;
-
-          if (dyTouch != 0) dyTouch < 0 ? changeSelection(1) : changeSelection(-1);
-        }
       }
       else
       {
@@ -1296,6 +1313,19 @@ class FreeplayState extends MusicBeatSubState
     result.persistentDraw = true;
     return result;
   }
+
+
+  public function checkArea() //mariomaestro ayudando a los causas - NOTA: tengo q mejorar esta mierda cfffffffff
+  {
+    var touch:FlxTouch = FlxG.touches.getFirst();
+
+    for (area in TouchAreas)
+    {
+      if (touch.screenX >= area.x && touch.screenX <= area.x + area.width && touch.screenY >= area.y && touch.screenY <= area.y + area.height) return area.name;
+    }
+    return "nothing";
+  }
+
 }
 
 /**

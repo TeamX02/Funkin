@@ -158,8 +158,8 @@ class GameOverSubState extends MusicBeatSubState
     // The conductor now represents the BPM of the game over music.
     Conductor.instance.update(0);
     #if mobile
-    addVirtualPad(NONE, A_B);
-    addVirtualPadCamera(false);
+    //addVirtualPad(NONE, A_B);
+    //addVirtualPadCamera(false);
     #end
   }
 
@@ -220,10 +220,22 @@ class GameOverSubState extends MusicBeatSubState
 
     // Smoothly lerp the camera
     FlxG.camera.zoom = MathUtil.smoothLerp(FlxG.camera.zoom, targetCameraZoom, elapsed, CAMERA_ZOOM_DURATION);
-
     //
     // Handle user inputs.
     //
+
+    // MOBILE ONLY: Restart the level when tapping Boyfriend.
+    if (FlxG.onMobile)
+    {
+       var touch:FlxTouch = FlxG.touches.getFirst();
+      if (touch != null)
+      {
+         if (boyfriend == null || (boyfriend != null && boyfriend.characterId == "pico-blazin") || touch.overlaps(boyfriend))
+        {
+          confirmDeath();
+        }
+       }
+    }
 
     // KEYBOARD ONLY: Restart the level when pressing the assigned key.
     if (controls.ACCEPT && blueballed)
@@ -233,7 +245,7 @@ class GameOverSubState extends MusicBeatSubState
     }
 
     // KEYBOARD ONLY: Return to the menu when pressing the assigned key.
-    if (controls.BACK && !mustNotExit)
+    if ((controls.BACK#if android || FlxG.android.justReleased.BACK #end) && !mustNotExit)
     {
       blueballed = false;
       PlayState.instance.deathCounter = 0;

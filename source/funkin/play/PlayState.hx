@@ -65,6 +65,7 @@ import lime.ui.Haptic;
 import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
+import funkin.play.cutscene.VideoCutscene;
 // import funkin.play.cutscene.VideoSubState; unusued
 #if discord_rpc
 import Discord.DiscordClient;
@@ -922,14 +923,8 @@ class PlayState extends MusicBeatSubState
       Conductor.instance.update(); // Normal conductor update.
     }
 
-    var androidPause:Bool = false;
-
-    #if android
-    androidPause = FlxG.android.justPressed.BACK;
-    #end
-
     // Attempt to pause the game.
-    if ((controls.PAUSE || androidPause) && isInCountdown && mayPauseGame && !justUnpaused)
+    if ((controls.PAUSE#if android || FlxG.android.justReleased.BACK#end) && isInCountdown && mayPauseGame && !justUnpaused)
     {
       var event = new PauseScriptEvent(FlxG.random.bool(1 / 1000));
 
@@ -2634,14 +2629,31 @@ class PlayState extends MusicBeatSubState
     if (currentConversation != null)
     {
       // Pause/unpause may conflict with advancing the conversation!
-      if (controls.CUTSCENE_ADVANCE #if mobile || pressedEnter #end && !justUnpaused)
+      if ((controls.CUTSCENE_ADVANCE#if mobile || pressedEnter#end) && !justUnpaused)
       {
         currentConversation.advanceConversation();
       }
-      else if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && !justUnpaused)
+      else if ((controls.PAUSE#if android || FlxG.android.justReleased.BACK#end) && !justUnpaused)
       {
         currentConversation.pauseMusic();
         var pauseSubState:FlxSubState = new PauseSubState({mode: Conversation});
+        persistentUpdate = false;
+        FlxTransitionableState.skipNextTransIn = true;
+        FlxTransitionableState.skipNextTransOut = true;
+        pauseSubState.camera = camCutscene;
+        openSubState(pauseSubState);
+      }
+    }
+    else if (VideoCutscene.isPlaying())
+    {
+      // This is a video cutscene.
+      trace("playing cutscene");
+      if ((controls.PAUSE#if android || FlxG.android.justReleased.BACK#end) && !justUnpaused)
+      {
+        VideoCutscene.pauseVideo();
+    
+        var pauseSubState:FlxSubState = new PauseSubState({mode: Cutscene});
+    
         persistentUpdate = false;
         FlxTransitionableState.skipNextTransIn = true;
         FlxTransitionableState.skipNextTransOut = true;

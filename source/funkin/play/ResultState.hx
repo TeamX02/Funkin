@@ -384,16 +384,7 @@ class ResultState extends MusicBeatSubState
       speedOfTween.x -= 0.1;
     }
 
-    #if mobile
-    var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
-
-    for (touch in FlxG.touches.list)
-    {
-      if (touch.justPressed) pressedEnter = true;
-    }
-    #end  
-
-    if (controls.PAUSE #if mobile || pressedEnter #end)
+    if (controls.PAUSE#if android || FlxG.android.justReleased.BACK #end) //better ig
     {
       FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.8);
       FlxTween.tween(FlxG.sound.music, {pitch: 3}, 0.1,
