@@ -1,15 +1,4 @@
 {
-  "[haxe]": {
-    // Automatically keep Haxe files formatted.
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": "never"
-    },
-    "editor.defaultFormatter": "nadako.vshaxe",
-    "editor.tabSize": 2
-  },
-
   "[json]": {
     // Automatically keep JSON files formatted.
     "editor.formatOnSave": true,
@@ -173,7 +162,7 @@
     {
       "label": "Windows / Debug (Debug hxCodec)",
       "target": "windows",
-      "args": ["-debug", "-DhxCodec_LOGGING", "-DFORCE_DEBUG_VERSION"]
+      "args": ["-debug", "-DHXC_LIBVLC_LOGGING", "-DFORCE_DEBUG_VERSION"]
     },
     {
       "label": "HashLink / Debug (Straight to Animation Editor)",
@@ -234,76 +223,7 @@
       "label": "macOS / Release (GitHub Actions)",
       "target": "mac",
       "args": ["-release", "-DGITHUB_BUILD"]
-    },
-    {
-      "label": "android / Debug",
-      "target": "android",
-      "args": ["-debug", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (FlxAnimate Test)",
-      "target": "android",
-      "args": ["-debug", "-DANIMATE", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Straight to Freeplay)",
-      "target": "android",
-      "args": ["-debug", "-DFREEPLAY", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Straight to Play - Bopeebo Normal)",
-      "target": "android",
-      "args": [
-        "-debug",
-        "-DSONG=bopeebo -DDIFFICULTY=normal",
-        "-DFORCE_DEBUG_VERSION"
-      ]
-    },
-    {
-      "label": "android / Debug (Straight to Play - 2hot)",
-      "target": "android",
-      "args": ["-debug", "-DSONG=2hot", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Conversation Test)",
-      "target": "android",
-      "args": ["-debug", "-DDIALOGUE", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Straight to Chart Editor)",
-      "target": "android",
-      "args": ["-debug", "-DCHARTING", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Straight to Animation Editor)",
-      "target": "android",
-      "args": ["-debug", "-DANIMDEBUG", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Debug hxCodec)",
-      "target": "android",
-      "args": ["-debug", "-DhxCodec_LOGGING", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Latency Test)",
-      "target": "android",
-      "args": ["-debug", "-DLATENCY", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Debug (Waveform Test)",
-      "target": "android",
-      "args": ["-debug", "-DWAVEFORM", "-DFORCE_DEBUG_VERSION"]
-    },
-    {
-      "label": "android / Release",
-      "target": "android",
-      "args": ["-release"]
-    },
-    {
-      "label": "android / Release (GitHub Actions)",
-      "target": "android",
-      "args": ["-release", "-DGITHUB_BUILD"]
-    },
+    }
   ],
   "cmake.configureOnOpen": false,
   "coverage-gutters.coverageFileNames": [

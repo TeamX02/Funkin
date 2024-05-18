@@ -6,6 +6,8 @@ import funkin.ui.debug.DebugMenuSubState;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxG;
+import flixel.ui.FlxButton;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -27,6 +29,8 @@ import funkin.ui.title.TitleState;
 import funkin.ui.story.StoryMenuState;
 import funkin.ui.Prompt;
 import funkin.util.WindowUtil;
+import mobile.CreditsMobileState;
+import flixel.text.FlxText;
 #if discord_rpc
 import Discord.DiscordClient;
 #end
@@ -77,6 +81,10 @@ class MainMenuState extends MusicBeatState
     magenta.x = bg.x;
     magenta.y = bg.y;
     magenta.visible = false;
+
+    var mobileCreditsButton = new FlxButton(FlxG.width - 200, 50, "Mobile Credits", onMobileCredits);
+    mobileCreditsButton.scale.set(2, 2);
+    add(mobileCreditsButton);
 
     // TODO: Why doesn't this line compile I'm going fucking feral
 
@@ -160,6 +168,12 @@ class MainMenuState extends MusicBeatState
     // this.rightWatermarkText.text = "blablabla test";
 
     // NG.core.calls.event.logEvent('swag').send();
+  }
+
+
+  function onMobileCredits():Void
+  {
+    startExitState(() -> new CreditsMobileState());
   }
 
   function playMenuMusic():Void
