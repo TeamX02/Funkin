@@ -157,6 +157,10 @@ class GameOverSubState extends MusicBeatSubState
 
     // The conductor now represents the BPM of the game over music.
     Conductor.instance.update(0);
+    #if mobile
+    addVirtualPad(NONE, A_B);
+    addVirtualPadCamera(false);
+    #end
   }
 
   @:nullSafety(Off)
@@ -220,19 +224,6 @@ class GameOverSubState extends MusicBeatSubState
     //
     // Handle user inputs.
     //
-
-    // MOBILE ONLY: Restart the level when tapping Boyfriend.
-    if (FlxG.onMobile)
-    {
-      var touch:FlxTouch = FlxG.touches.getFirst();
-      if (touch != null)
-      {
-        if (boyfriend == null || touch.overlaps(boyfriend))
-        {
-          confirmDeath();
-        }
-      }
-    }
 
     // KEYBOARD ONLY: Restart the level when pressing the assigned key.
     if (controls.ACCEPT && blueballed)

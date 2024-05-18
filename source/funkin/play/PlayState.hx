@@ -1754,9 +1754,9 @@ class PlayState extends MusicBeatSubState
     opponentStrumline.cameras = [camHUD];
 
     for (arrow in opponentStrumline.members)
-		{
-      if(Preferences.middlescroll) arrow.visible = false;
-		}
+    {
+      if (Preferences.middlescroll) arrow.visible = false;
+    }
 
     if (!PlayStatePlaylist.isStoryMode)
     {
@@ -2621,15 +2621,24 @@ class PlayState extends MusicBeatSubState
    */
   function handleCutsceneKeys(elapsed:Float):Void
   {
+    #if mobile
+    var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+
+    for (touch in FlxG.touches.list)
+    {
+      if (touch.justPressed) pressedEnter = true;
+    }
+    #end
+
     if (isGamePaused) return;
     if (currentConversation != null)
     {
       // Pause/unpause may conflict with advancing the conversation!
-      if (controls.CUTSCENE_ADVANCE && !justUnpaused)
+      if (controls.CUTSCENE_ADVANCE #if mobile || pressedEnter #end && !justUnpaused)
       {
         currentConversation.advanceConversation();
       }
-      else if (controls.PAUSE && !justUnpaused)
+      else if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && !justUnpaused)
       {
         currentConversation.pauseMusic();
         var pauseSubState:FlxSubState = new PauseSubState({mode: Conversation});
