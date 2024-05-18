@@ -3,6 +3,7 @@ package funkin.util;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.input.touch.FlxTouch;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
@@ -62,6 +63,7 @@ class Utils
     return File.getContent(id);
     #end
   }
+
 
   /**
    * Retorna entre verdadeiro ou falso a existência do arquivo especificado
@@ -176,6 +178,30 @@ class BSLTouchUtils
     return FlxG.mouse.pressed;
     #end
   }
+
+  /**
+   * solo para ver el mousescreen.
+   */
+  public static function touchScreenX():Float
+  {
+    #if (flixel && android)
+    var touch:FlxTouch = FlxG.touches.getFirst();
+
+    return touch.screenX;
+    #end
+  }
+
+  /**
+   * solo para ver el mousescreen.
+   */
+   public static function touchScreenY():Float
+   {
+      #if (flixel && android)
+      var touch:FlxTouch = FlxG.touches.getFirst();
+  
+      return touch.screenY;
+      #end
+   }
 
   /**
    * Retorna verdadeiro ou falso caso tenha parado de Tocar na tela (Mobile) ou Soltado o botão do Mouse (Desktop).

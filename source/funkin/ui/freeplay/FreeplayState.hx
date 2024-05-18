@@ -38,6 +38,7 @@ import funkin.ui.transition.LoadingState;
 import funkin.ui.transition.StickerSubState;
 import funkin.util.MathUtil;
 import lime.utils.Assets;
+import funkin.util.Utils.BSLTouchUtils;
 
 /**
  * Parameters used to initialize the FreeplayState.
@@ -787,23 +788,20 @@ class FreeplayState extends MusicBeatSubState
 
     if (FlxG.onMobile)
     {
-      for (touch in FlxG.touches.list)
+      if (BSLTouchUtils.justTouched())
       {
-        if (touch.justPressed)
-        {
-          initTouchPos.set(touch.screenX, touch.screenY);
-        }
-        if (touch.pressed)
-        {
-          var dx:Float = initTouchPos.x - touch.screenX;
-          var dy:Float = initTouchPos.y - touch.screenY;
+         initTouchPos.set(BSLTouchUtils.touchScreenX(), BSLTouchUtils.touchScreenY());
+      }
+      if (BSLTouchUtils.touched())
+      {
+        var dx:Float = initTouchPos.x - BSLTouchUtils.touchScreenX();
+        var dy:Float = initTouchPos.y - BSLTouchUtils.touchScreenY();
 
-          var angle:Float = Math.atan2(dy, dx);
-          var length:Float = Math.sqrt(dx * dx + dy * dy);
+        var angle:Float = Math.atan2(dy, dx);
+        var length:Float = Math.sqrt(dx * dx + dy * dy);
 
-          FlxG.watch.addQuick('LENGTH', length);
-          FlxG.watch.addQuick('ANGLE', Math.round(FlxAngle.asDegrees(angle)));
-        }
+        FlxG.watch.addQuick('LENGTH', length);
+        FlxG.watch.addQuick('ANGLE', Math.round(FlxAngle.asDegrees(angle)));
       }
 
       if (FlxG.touches.getFirst() != null)
@@ -813,18 +811,18 @@ class FreeplayState extends MusicBeatSubState
         touchTimer += elapsed;
         var touch:FlxTouch = FlxG.touches.getFirst();
 
-        velTouch = Math.abs((touch.screenY - dyTouch)) / 50;
+        velTouch = Math.abs((BSLTouchUtils.touchScreenY() - dyTouch)) / 50;
 
-        dyTouch = touch.screenY - touchY;
-        dxTouch = touch.screenX - touchX;
+        dyTouch = BSLTouchUtils.touchScreenY() - touchY;
+        dxTouch = BSLTouchUtils.touchScreenX() - touchX;
 
         if (touch.justPressed)
         {
-          touchY = touch.screenY;
+          touchY = BSLTouchUtils.touchScreenY();
           dyTouch = 0;
           velTouch = 0;
 
-          touchX = touch.screenX;
+          touchX = BSLTouchUtils.touchScreenX();
           dxTouch = 0;
         }
 
@@ -833,19 +831,19 @@ class FreeplayState extends MusicBeatSubState
           case "DiffArea":
           if (Math.abs(dxTouch) >= 100)
           {
-            touchX = touch.screenX;
+            touchX = BSLTouchUtils.touchScreenX();
             if (dxTouch != 0) dxTouch < 0 ? changeDiff(1) : changeDiff(-1);
           }
           case "SongArea":
           if (Math.abs(dyTouch) >= 100)
           {
-            touchY = touch.screenY;
+            touchY = BSLTouchUtils.touchScreenY();
             if (dyTouch != 0) dyTouch < 0 ? changeSelection(1) : changeSelection(-1);
           }
           case "idkArea":
           if (Math.abs(dxTouch) >= 100)
           {
-            touchX = touch.screenX;
+            touchX = BSLTouchUtils.touchScreenX();
             if (dxTouch != 0) dxTouch < 0 ? letterSort.changeSelection(1) : letterSort.changeSelection(-1);
           }
         }
@@ -1317,11 +1315,11 @@ class FreeplayState extends MusicBeatSubState
 
   public function checkArea() //mariomaestro ayudando a los causas - NOTA: tengo q mejorar esta mierda cfffffffff
   {
-    var touch:FlxTouch = FlxG.touches.getFirst();
+   // var touch:FlxTouch = FlxG.touches.getFirst();
 
     for (area in TouchAreas)
     {
-      if (touch.screenX >= area.x && touch.screenX <= area.x + area.width && touch.screenY >= area.y && touch.screenY <= area.y + area.height) return area.name;
+      if (BSLTouchUtils.touchScreenX() >= area.x && BSLTouchUtils.touchScreenX() <= area.x + area.width && BSLTouchUtils.touchScreenY() >= area.y && BSLTouchUtils.touchScreenY() <= area.y + area.height) return area.name;
     }
     return "nothing";
   }

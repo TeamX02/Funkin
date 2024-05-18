@@ -224,17 +224,11 @@ class GameOverSubState extends MusicBeatSubState
     // Handle user inputs.
     //
 
-    // MOBILE ONLY: Restart the level when tapping Boyfriend.
+    // MOBILE ONLY: Restart the level when tapping.
     if (FlxG.onMobile)
     {
-       var touch:FlxTouch = FlxG.touches.getFirst();
-      if (touch != null)
-      {
-         if (boyfriend == null || (boyfriend != null && boyfriend.characterId == "pico-blazin") || touch.overlaps(boyfriend))
-        {
-          confirmDeath();
-        }
-       }
+      var touch:FlxTouch = FlxG.touches.getFirst();
+      if (touch != null) confirmDeath();
     }
 
     // KEYBOARD ONLY: Restart the level when pressing the assigned key.
