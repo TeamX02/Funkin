@@ -2267,7 +2267,7 @@ class PlayState extends MusicBeatSubState
       var input:PreciseInputEvent = inputPressQueue.shift();
       playerStrumline.pressKey(input.noteDirection);
       var notesInDirection:Array<NoteSprite> = notesByDirection[input.noteDirection];
-      if (Preferences.ghosttapping && notesInDirection.length == 0)
+      if (!Preferences.ghosttapping && notesInDirection.length == 0)
       {
         // Pressed a wrong key with no notes nearby.
         // Perform a ghost miss (anti-spam).
@@ -2275,7 +2275,7 @@ class PlayState extends MusicBeatSubState
         // Play the strumline animation.
         playerStrumline.playPress(input.noteDirection);
       }
-      else if (Preferences.ghosttapping && (holdNotesInRange.length + notesInRange.length > 0) && notesInDirection.length == 0)
+      else if (!Preferences.ghosttapping && (holdNotesInRange.length + notesInRange.length > 0) && notesInDirection.length == 0)
       {
         // Pressed a wrong key with no notes nearby AND with notes in a different direction available.
         // Perform a ghost miss (anti-spam).

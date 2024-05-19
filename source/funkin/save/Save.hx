@@ -851,8 +851,8 @@ typedef SaveDataOptions =
   var downscroll:Bool;
 
   /**
-   * Enable to make miss when there arent notes to press.
-   * @default `false`
+   * Disable to make miss when there arent notes to press.
+   * @default `true`
    */
    var ghosttapping:Bool;
 

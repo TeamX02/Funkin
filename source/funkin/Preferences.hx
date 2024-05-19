@@ -46,7 +46,7 @@ class Preferences
   }
 
   /**
-   * Enable to make miss when there arent notes to press.
+   * Disable to make miss when there arent notes to press.
    * @default `true`
    */
    public static var ghosttapping(get, set):Bool;
