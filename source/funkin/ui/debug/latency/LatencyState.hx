@@ -172,6 +172,10 @@ class LatencyState extends MusicBeatSubState
     add(helpText);
 
     regenNoteData();
+    #if mobile
+    addMobileControls();
+    mobileControls.visible = true;
+    #end
   }
 
   function preciseInputPressed(event:PreciseInputEvent)
@@ -309,7 +313,7 @@ class LatencyState extends MusicBeatSubState
       }
     }
 
-    if (controls.BACK)
+    if (controls.BACK #if android || FlxG.android.justReleased.BACK#end)
     {
       close();
     }
