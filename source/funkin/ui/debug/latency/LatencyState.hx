@@ -173,6 +173,8 @@ class LatencyState extends MusicBeatSubState
 
     regenNoteData();
     #if mobile
+    addVirtualPad(LEFT_RIGHT, A_B_X_Y);
+    addVirtualPadCamera(false);
     addMobileControls();
     mobileControls.visible = true;
     #end
@@ -255,12 +257,21 @@ class LatencyState extends MusicBeatSubState
     songVisFollowAudio.x = songPosToX(localConductor.songPosition - localConductor.audioVisualOffset);
     songVisFollowVideo.x = songPosToX(localConductor.songPosition - localConductor.inputOffset);
 
+    #if desktop
     visualOffsetText.text = "Visual Offset: " + localConductor.audioVisualOffset + "ms";
     visualOffsetText.text += "\n\nYou can press SPACE+Left/Right to change this value.";
     visualOffsetText.text += "\n\nYou can hold SHIFT to step 1ms at a time";
 
     offsetText.text = "INPUT Offset (Left/Right to change): " + localConductor.inputOffset + "ms";
     offsetText.text += "\n\nYou can hold SHIFT to step 1ms at a time";
+    #else
+    visualOffsetText.text = "Visual Offset: " + localConductor.audioVisualOffset + "ms";
+    visualOffsetText.text += "\n\nYou can press button X+Left/Right to change this value.";
+    visualOffsetText.text += "\n\nYou can hold button Y to step 1ms at a time";
+
+    offsetText.text = "INPUT Offset (Left/Right to change): " + localConductor.inputOffset + "ms";
+    offsetText.text += "\n\nYou can hold button Y to step 1ms at a time";
+    #end
 
     var avgOffsetInput:Float = 0;
 
@@ -278,30 +289,30 @@ class LatencyState extends MusicBeatSubState
 
     var multiply:Int = 10;
 
-    if (FlxG.keys.pressed.SHIFT) multiply = 1;
+    if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonY.justPressed #end) multiply = 1;
 
-    if (FlxG.keys.pressed.CONTROL || FlxG.keys.pressed.SPACE)
+    if (FlxG.keys.pressed.CONTROL || FlxG.keys.pressed.SPACE #if mobile || virtualPad.buttonX.justPressed #end)
     {
-      if (FlxG.keys.justPressed.RIGHT)
+      if (FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end)
       {
         localConductor.audioVisualOffset += 1 * multiply;
       }
 
-      if (FlxG.keys.justPressed.LEFT)
+      if (FlxG.keys.justPressed.LEFT #if mobile || virtualPad.buttonLeft.justPressed #end)
       {
         localConductor.audioVisualOffset -= 1 * multiply;
       }
     }
     else
     {
-      if (FlxG.keys.anyJustPressed([LEFT, RIGHT]))
+      if (FlxG.keys.anyJustPressed([LEFT, RIGHT]) #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end)
       {
-        if (FlxG.keys.justPressed.RIGHT)
+        if (FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end
         {
           localConductor.inputOffset += 1 * multiply;
         }
 
-        if (FlxG.keys.justPressed.LEFT)
+        if (FlxG.keys.justPressed.LEFT #if mobile || virtualPad.buttonLeft.justPressed #end)
         {
           localConductor.inputOffset -= 1 * multiply;
         }
@@ -313,8 +324,11 @@ class LatencyState extends MusicBeatSubState
       }
     }
 
-    if (controls.BACK #if android || FlxG.android.justReleased.BACK#end)
+    if (controls.BACK)
     {
+      #if mobile
+      removeMobileControls();
+      #end
       close();
     }
 
