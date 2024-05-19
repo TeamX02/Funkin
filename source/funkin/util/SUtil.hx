@@ -38,9 +38,11 @@ class SUtil
   /**
    * This returns the external storage path that the game will use by the type.
    */
-  public static function getStorageDirectory(type:StorageType = MEDIA):String
+  public static function getStorageDirectory(type:StorageType = EXTERNAL_DATA):String
   {
     var daPath:String = '';
+
+    if(android.os.Build.VERSION.SDK_INT > 30) type = MEDIA;
 
     #if android
     switch (type)
@@ -80,7 +82,6 @@ class SUtil
     }
     #end
   }
-
   /**
    * Uncaught error handler, original made by: Sqirra-RNG and YoshiCrafter29
    */
