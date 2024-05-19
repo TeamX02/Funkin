@@ -307,7 +307,7 @@ class LatencyState extends MusicBeatSubState
     {
       if (FlxG.keys.anyJustPressed([LEFT, RIGHT]) #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end)
       {
-        if (FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end
+        if (FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end)
         {
           localConductor.inputOffset += 1 * multiply;
         }
