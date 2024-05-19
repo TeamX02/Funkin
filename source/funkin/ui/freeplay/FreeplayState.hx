@@ -694,6 +694,45 @@ class FreeplayState extends MusicBeatSubState
     return songsToFilter;
   }
 
+  var CoolDownFav:Bool = false;
+  var timersito:FlxTimer;
+
+  function makeFav()
+  {
+    if(CoolDownFav) return;
+
+    var targetSong = grpCapsules.members[curSelected]?.songData;
+    if (targetSong != null)
+   {
+    var realShit:Int = curSelected;
+    targetSong.isFav = !targetSong.isFav;
+    if (targetSong.isFav)
+    {
+      FlxTween.tween(grpCapsules.members[realShit], {angle: 360}, 0.4,
+        {
+          ease: FlxEase.elasticOut,
+          onComplete: _ -> {
+            grpCapsules.members[realShit].favIcon.visible = true;
+            grpCapsules.members[realShit].favIcon.animation.play('fav');
+          }
+        });
+    }
+    else
+    {
+      grpCapsules.members[realShit].favIcon.animation.play('fav', false, true);
+      new FlxTimer().start((1 / 24) * 14, _ -> {
+        grpCapsules.members[realShit].favIcon.visible = false;
+      });
+      new FlxTimer().start((1 / 24) * 24, _ -> {
+        FlxTween.tween(grpCapsules.members[realShit], {angle: 0}, 0.4, {ease: FlxEase.elasticOut});
+      });
+    }
+    CoolDownFav = true;
+    timersito = new FlxTimer().start(1, (timer:FlxTimer) -> { CoolDownFav = false; });
+   }
+  
+  }
+
   var touchY:Float = 0;
   var touchX:Float = 0;
   var dxTouch:Float = 0;
@@ -806,7 +845,15 @@ class FreeplayState extends MusicBeatSubState
 
       if (FlxG.touches.getFirst() != null)
       {
-        if (touchTimer >= 1.2 && checkArea() == "PlayArea") accepted = true;
+        if (touchTimer >= 0.6 && checkArea() == "PlayArea") {
+          switch (FlxG.touches.list.length) {
+            case 1:
+                if(!CoolDownFav) accepted = true;
+            case 2:
+                makeFav();
+                touchTimer = 0; //reseteada
+          }
+        }
 
         touchTimer += elapsed;
         var touch:FlxTouch = FlxG.touches.getFirst();
