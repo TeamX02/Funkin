@@ -31,6 +31,9 @@ import funkin.ui.Prompt;
 import funkin.util.WindowUtil;
 import mobile.CreditsMobileState;
 import flixel.text.FlxText;
+import flixel.input.touch.FlxTouch;
+import funkin.util.Utils.BSLTouchUtils;
+
 #if discord_rpc
 import Discord.DiscordClient;
 #end
@@ -81,10 +84,6 @@ class MainMenuState extends MusicBeatState
     magenta.x = bg.x;
     magenta.y = bg.y;
     magenta.visible = false;
-
-    var mobileCreditsButton = new FlxButton(FlxG.width - 200, 50, "Mobile Credits", onMobileCredits);
-    mobileCreditsButton.scale.set(2, 2);
-    add(mobileCreditsButton);
 
     // TODO: Why doesn't this line compile I'm going fucking feral
 
@@ -165,15 +164,22 @@ class MainMenuState extends MusicBeatState
 
     // This has to come AFTER!
     this.leftWatermarkText.text = Constants.VERSION;
-    // this.rightWatermarkText.text = "blablabla test";
+    this.rightWatermarkText.text = "Touch Here to see ANDROID PORT Credits";
 
     // NG.core.calls.event.logEvent('swag').send();
   }
 
-
   function onMobileCredits():Void
   {
     startExitState(() -> new CreditsMobileState());
+  }
+
+  public function checkArea() //repollo
+  {
+    var touchy = {x: 803, y: 0, width: 477, height: 65};
+    if (BSLTouchUtils.touchScreenX() >= touchy.x && BSLTouchUtils.touchScreenX() <= touchy.x + touchy.width && BSLTouchUtils.touchScreenY() >= touchy.y && BSLTouchUtils.touchScreenY() <= touchy.y + touchy.height) return true;
+
+    return false;
   }
 
   function playMenuMusic():Void
@@ -320,6 +326,11 @@ class MainMenuState extends MusicBeatState
   override function update(elapsed:Float):Void
   {
     super.update(elapsed);
+
+    if (FlxG.onMobile)
+    {
+      if(checkArea()) onMobileCredits();
+    }
 
     /*
       if (FlxG.onMobile)

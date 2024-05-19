@@ -12,7 +12,6 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.media.Video;
 import openfl.net.NetStream;
-import funkin.util.SUtil;
 
 /**
  * The main class which initializes HaxeFlixel and starts the game in its initial state.
@@ -46,7 +45,7 @@ class Main extends Sprite
   public function new()
   {
     super();
-    // SUtil.uncaughtErrorHandler();
+
     // Initialize custom logging.
     haxe.Log.trace = funkin.util.logging.AnsiTrace.trace;
     funkin.util.logging.AnsiTrace.traceBF();

@@ -148,7 +148,7 @@ class MusicBeatState extends FlxTransitionableState implements IEventHandler
     // Both have an xPos of 0, but a width equal to the full screen.
     // The rightWatermarkText is right aligned, which puts the text in the correct spot.
     leftWatermarkText = new FlxText(0, FlxG.height - 18, FlxG.width, '', 12);
-    rightWatermarkText = new FlxText(0, FlxG.height - 18, FlxG.width, '', 12);
+    rightWatermarkText = new FlxText(0, 0, FlxG.width, '', 12); //hare que este sea el texto para los creditos ya q nadie lo usa xd
 
     // 100,000 should be good enough.
     leftWatermarkText.zIndex = 100000;
@@ -156,7 +156,7 @@ class MusicBeatState extends FlxTransitionableState implements IEventHandler
     leftWatermarkText.scrollFactor.set(0, 0);
     rightWatermarkText.scrollFactor.set(0, 0);
     leftWatermarkText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-    rightWatermarkText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    rightWatermarkText.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 
     add(leftWatermarkText);
     add(rightWatermarkText);

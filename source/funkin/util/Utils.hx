@@ -187,7 +187,9 @@ class BSLTouchUtils
     #if (flixel && android)
     var touch:FlxTouch = FlxG.touches.getFirst();
 
-    return touch.screenX;
+    if(touch != null) return touch.screenX;
+
+    return 0; //espero que es to no rompa nada xd
     #end
   }
 
@@ -199,7 +201,9 @@ class BSLTouchUtils
       #if (flixel && android)
       var touch:FlxTouch = FlxG.touches.getFirst();
   
-      return touch.screenY;
+      if(touch != null) return touch.screenY;
+
+      return 0;
       #end
    }
 

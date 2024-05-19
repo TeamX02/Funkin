@@ -3,15 +3,16 @@ package mobile;
 import flixel.FlxState;
 import flixel.FlxG;
 import flixel.text.FlxText;
-import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import funkin.ui.mainmenu.MainMenuState;
 import flixel.FlxSprite;
 import funkin.Paths;
 import funkin.ui.AtlasText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.input.mouse.FlxMouseEvent;
 
-class CreditsMobileState extends FlxState { //is was ai generated ??????????????????????????????????????? :skull:
+class CreditsMobileState extends FlxState { //is was ai generated before ??????????????????????????????????????? :skull:
     override public function create():Void {
         super.create();
 
@@ -23,9 +24,20 @@ class CreditsMobileState extends FlxState { //is was ai generated ??????????????
         title.setFormat(null, 32, FlxColor.WHITE, "center", OUTLINE, FlxColor.BLACK);
         add(title);
 
+        var btext:FlxText = new FlxText(0, 0, FlxG.width / 2, "Tap a Porter name to view their Youtube Channel");
+        btext.setFormat(null, 15, FlxColor.WHITE, "center", OUTLINE, FlxColor.BLACK);
+        btext.y = FlxG.height - btext.height;
+        add(btext);
+
+        var btext2:FlxText = new FlxText(0, 0, FlxG.width / 2, "Tap the BACK MOBILE button to return to the main menu");
+        btext2.setFormat(null, 15, FlxColor.WHITE, "center", OUTLINE, FlxColor.BLACK);
+        btext2.x = FlxG.width - btext2.width;
+        btext2.y = FlxG.height - btext2.height;
+        add(btext2);
+
         var androidPorters:Array<{name:String, url:String}> = [
             {name: "Dxgamer", url: "https://www.youtube.com/@Dxgamer7405"},
-            {name: "MarioMaster", url: "https://www.youtube.com/@MarioMaster39"},
+            {name: "MarioMaster", url: "https://www.youtube.com/@MarioMaster39"}, //omg soy yo
             {name: "MaysLastPlay", url: "https://www.youtube.com/@MaysLastPlay"},
             {name: "Matheus Silver", url: "https://www.youtube.com/@MatheusSilver"},
             {name: "Mateusx02", url: "https://www.youtube.com/@mateusx02"},
@@ -37,20 +49,21 @@ class CreditsMobileState extends FlxState { //is was ai generated ??????????????
             texto.screenCenter(X);
             add(texto);
 
+            texto.x = texto.x - 1000;
+
             FlxMouseEvent.add(texto, function onMouseDown(texto:AtlasText)
             {
                 FlxG.openURL(androidPorters[i].url);
             }, null, null, null);
 
-
-        } 
-
-        var backButton:FlxButton = new FlxButton(FlxG.width / 2 - 40, FlxG.height - 60, "Back", onBack);
-        backButton.scale.set(2, 2);
-        add(backButton);
+            FlxTween.tween(texto, { x: texto.x + 1000}, 1.0, { startDelay: i * 0.1, ease: FlxEase.quadOut}); //twinsito
+        }
     }
 
-    private function onBack():Void {
-        FlxG.switchState(new MainMenuState());
+    override function update(elapsed){
+        super.update(elapsed);
+
+        if(FlxG.android.justReleased.BACK) FlxG.switchState(new MainMenuState()); //pa tras
     }
+    
 }
