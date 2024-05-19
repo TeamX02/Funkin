@@ -806,7 +806,7 @@ class FreeplayState extends MusicBeatSubState
 
       if (FlxG.touches.getFirst() != null)
       {
-        if (touchTimer >= 1.2 && checkArea() == "PlayArea") accepted = true;
+        if (touchTimer >= 0.6 && checkArea() == "PlayArea") accepted = true;
 
         touchTimer += elapsed;
         var touch:FlxTouch = FlxG.touches.getFirst();
