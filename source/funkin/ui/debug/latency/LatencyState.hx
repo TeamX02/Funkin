@@ -175,8 +175,6 @@ class LatencyState extends MusicBeatSubState
     #if mobile
     addVirtualPad(LEFT_RIGHT, A_B_X_Y);
     addVirtualPadCamera(false);
-    addMobileControls();
-    mobileControls.visible = true;
     #end
   }
 
@@ -326,9 +324,6 @@ class LatencyState extends MusicBeatSubState
 
     if (controls.BACK)
     {
-      #if mobile
-      removeMobileControls();
-      #end
       close();
     }
 
