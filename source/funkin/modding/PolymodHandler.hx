@@ -18,6 +18,7 @@ import funkin.util.macro.ClassMacro;
 import polymod.backends.PolymodAssets.PolymodAssetType;
 import polymod.format.ParseRules.TextFileFormat;
 import polymod.Polymod;
+import funkin.util.SUtil;
 
 /**
  * A class for interacting with Polymod, the atomic modding framework for Haxe.
@@ -72,7 +73,7 @@ class PolymodHandler
   public static function loadAllMods():Void
   {
     // Create the mod root if it doesn't exist.
-    // createModRoot();
+    createModRoot();
     trace('Initializing Polymod (using all mods)...');
     loadModsById(getAllModIds());
   }
@@ -83,7 +84,7 @@ class PolymodHandler
   public static function loadEnabledMods():Void
   {
     // Create the mod root if it doesn't exist.
-    // createModRoot();
+    createModRoot();
 
     trace('Initializing Polymod (using configured mods)...');
     loadModsById(Save.instance.enabledModIds);
@@ -95,7 +96,7 @@ class PolymodHandler
   public static function loadNoMods():Void
   {
     // Create the mod root if it doesn't exist.
-    // createModRoot();
+    createModRoot();
 
     // We still need to configure the debug print calls etc.
     trace('Initializing Polymod (using no mods)...');
@@ -124,7 +125,7 @@ class PolymodHandler
     var loadedModList:Array<ModMetadata> = polymod.Polymod.init(
       {
         // Root directory for all mods.
-        modRoot: MOD_FOLDER,
+        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
         // The directories for one or more mods to load.
         dirs: ids,
         // Framework being used to load assets.
@@ -219,7 +220,7 @@ class PolymodHandler
     polymod.Polymod.onError = PolymodErrorHandler.onPolymodError;
     return new ZipFileSystem(
       {
-        modRoot: MOD_FOLDER,
+        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
         autoScan: true
       });
   }
@@ -307,7 +308,7 @@ class PolymodHandler
 
     var modMetadata:Array<ModMetadata> = Polymod.scan(
       {
-        modRoot: MOD_FOLDER,
+        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
         apiVersionRule: API_VERSION,
         fileSystem: modFileSystem,
         errorCallback: PolymodErrorHandler.onPolymodError

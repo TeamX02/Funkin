@@ -12,6 +12,9 @@ import haxe.ui.containers.dialogs.Dialog.DialogButton;
 import haxe.ui.containers.dialogs.Dialogs;
 import haxe.ui.containers.dialogs.Dialogs.SelectedFileInfo;
 import haxe.ui.containers.dialogs.Dialogs.FileDialogExtensionInfo;
+import sys.FileSystem;
+import sys.io.File;
+import funkin.util.SUtil;
 
 /**
  * Utilities for reading and writing files on various platforms.
@@ -325,7 +328,7 @@ class FileUtil
   public static function readStringFromPath(path:String):String
   {
     #if sys
-    return sys.io.File.getContent(path);
+    return File.getContent(SUtil.getStorageDirectory() + path);
     #else
     trace('ERROR: readStringFromPath not implemented for this platform');
     return null;
@@ -342,8 +345,8 @@ class FileUtil
   public static function readBytesFromPath(path:String):Bytes
   {
     #if sys
-    if (!doesFileExist(path)) return null;
-    return sys.io.File.getBytes(path);
+    if (!doesFileExist(SUtil.getStorageDirectory() + path)) return null;
+    return File.getBytes(SUtil.getStorageDirectory() + path);
     #else
     return null;
     #end
@@ -352,7 +355,7 @@ class FileUtil
   public static function doesFileExist(path:String):Bool
   {
     #if sys
-    return sys.FileSystem.exists(path);
+    return FileSystem.exists(SUtil.getStorageDirectory() + path);
     #else
     return false;
     #end
@@ -395,7 +398,7 @@ class FileUtil
     file.addEventListener(IOErrorEvent.IO_ERROR, function(e:IOErrorEvent) {
       trace('IO error writing file.');
     });
-    file.save(data, path);
+    SUtil.saveContent(data, SUtil.getStorageDirectory() + path);
   }
 
   /**
@@ -410,7 +413,7 @@ class FileUtil
     #if sys
     try
     {
-      return SerializerUtil.fromJSON(sys.io.File.getContent(path));
+      return SerializerUtil.fromJSON(File.getContent(SUtil.getStorageDirectory() + path));
     }
     catch (ex)
     {
@@ -432,15 +435,15 @@ class FileUtil
   public static function writeStringToPath(path:String, data:String, mode:FileWriteMode = Skip):Void
   {
     #if sys
-    createDirIfNotExists(Path.directory(path));
+    createDirIfNotExists(Path.directory(SUtil.getStorageDirectory() + path));
     switch (mode)
     {
       case Force:
-        sys.io.File.saveContent(path, data);
+        File.saveContent(SUtil.getStorageDirectory() + path, data);
       case Skip:
-        if (!doesFileExist(path))
+        if (!doesFileExist(SUtil.getStorageDirectory() + path))
         {
-          sys.io.File.saveContent(path, data);
+          File.saveContent(SUtil.getStorageDirectory() + path, data);
         }
         else
         {
@@ -448,14 +451,14 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(path))
+        if (doesFileExist(SUtil.getStorageDirectory() + path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
         }
         else
         {
-          sys.io.File.saveContent(path, data);
+          File.saveContent(SUtil.getStorageDirectory() + path, data);
         }
     }
     #else
@@ -474,15 +477,15 @@ class FileUtil
   public static function writeBytesToPath(path:String, data:Bytes, mode:FileWriteMode = Skip):Void
   {
     #if sys
-    createDirIfNotExists(Path.directory(path));
+    createDirIfNotExists(Path.directory(SUtil.getStorageDirectory() + path));
     switch (mode)
     {
       case Force:
-        sys.io.File.saveBytes(path, data);
+        File.saveBytes(SUtil.getStorageDirectory() + path, data);
       case Skip:
-        if (!doesFileExist(path))
+        if (!doesFileExist(SUtil.getStorageDirectory() + path))
         {
-          sys.io.File.saveBytes(path, data);
+          File.saveBytes(SUtil.getStorageDirectory() + path, data);
         }
         else
         {
@@ -490,14 +493,14 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(path))
+        if (doesFileExist(SUtil.getStorageDirectory() + path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
         }
         else
         {
-          sys.io.File.saveBytes(path, data);
+          File.saveBytes(SUtil.getStorageDirectory() + path, data);
         }
     }
     #else
@@ -515,7 +518,7 @@ class FileUtil
   public static function appendStringToPath(path:String, data:String):Void
   {
     #if sys
-    sys.io.File.append(path, false).writeString(data);
+    File.append(SUtil.getStorageDirectory() + path, false).writeString(data);
     #else
     throw 'Direct file writing by path not supported on this platform.';
     #end
@@ -530,9 +533,9 @@ class FileUtil
   public static function createDirIfNotExists(dir:String):Void
   {
     #if sys
-    if (!doesFileExist(dir))
+    if (!doesFileExist(SUtil.getStorageDirectory() + dir))
     {
-      sys.FileSystem.createDirectory(dir);
+      FileSystem.createDirectory(SUtil.getStorageDirectory() + dir);
     }
     #end
   }
