@@ -105,7 +105,7 @@ class VideoCutscene
 
   public static function isPlaying():Bool
   {
-    #if (html5 || hxCodec || hvlc)
+    #if (html5 || hxCodec || hxvlc)
     return vid != null;
     #else
     return false;
@@ -310,7 +310,7 @@ class VideoCutscene
     }
     #end
 
-    #if (html5 || hxCodec)
+    #if (html5 || hxCodec || hxvlc) //lmaoooooooooo
     vid.destroy();
     vid = null;
     #end

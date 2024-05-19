@@ -2647,7 +2647,6 @@ class PlayState extends MusicBeatSubState
     else if (VideoCutscene.isPlaying())
     {
       // This is a video cutscene.
-      trace("playing cutscene");
       if ((controls.PAUSE#if android || FlxG.android.justReleased.BACK#end) && !justUnpaused)
       {
         VideoCutscene.pauseVideo();
