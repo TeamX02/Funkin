@@ -20,7 +20,7 @@ import funkin.ui.MusicBeatState;
  */
 class AttractState extends MusicBeatState
 {
-  static final ATTRACT_VIDEO_PATH:String = Paths.stripLibrary(Paths.videos('toyCommercial'));
+  static final ATTRACT_VIDEO_PATH:String = Paths.videos('toyCommercial');
 
   public override function create():Void
   {
@@ -36,7 +36,7 @@ class AttractState extends MusicBeatState
     playVideoHTML5(ATTRACT_VIDEO_PATH);
     #end
 
-    #if hxCodec
+    #if (hxCodec || hxvlc)
     trace('Playing native video ${ATTRACT_VIDEO_PATH}');
     playVideoNative(ATTRACT_VIDEO_PATH);
     #end
@@ -64,7 +64,7 @@ class AttractState extends MusicBeatState
   }
   #end
 
-  #if hxCodec
+  #if (hxCodec || hxvlc)
   var vid:FlxVideoSprite;
 
   function playVideoNative(filePath:String):Void
@@ -79,7 +79,7 @@ class AttractState extends MusicBeatState
 
       add(vid);
 
-      if (vid.load(filePath)) vid.play();
+      if (vid.load(openfl.Assets.getBytes(filePath))) vid.play();
     }
     else
     {
@@ -93,7 +93,7 @@ class AttractState extends MusicBeatState
     super.update(elapsed);
 
     // If the user presses any button, skip the video.
-    if (FlxG.keys.justPressed.ANY && !controls.VOLUME_MUTE && !controls.VOLUME_UP && !controls.VOLUME_DOWN)
+    if ((FlxG.keys.justPressed.ANY#if android || FlxG.android.justReleased.BACK#end) && !controls.VOLUME_MUTE && !controls.VOLUME_UP && !controls.VOLUME_DOWN)
     {
       onAttractEnd();
     }
@@ -112,7 +112,7 @@ class AttractState extends MusicBeatState
     }
     #end
 
-    #if hxCodec
+    #if (hxCodec || hxvlc)
     if (vid != null)
     {
       vid.stop();
@@ -120,7 +120,7 @@ class AttractState extends MusicBeatState
     }
     #end
 
-    #if (html5 || hxCodec)
+    #if (html5 || hxCodec || hxvlc)
     vid.destroy();
     vid = null;
     #end
