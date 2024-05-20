@@ -42,7 +42,7 @@ class SUtil
   {
     var daPath:String = '';
 
-    if(android.os.Build.VERSION.SDK_INT > 30) type = MEDIA;
+    if(android.os.Build.VERSION.SDK_INT >= 30) type = MEDIA; //android 11 with no access to data? wtf
 
     #if android
     switch (type)
