@@ -72,7 +72,10 @@ class Controls extends FlxActionSet
   var _volume_up = new FunkinAction(Action.VOLUME_UP);
   var _volume_down = new FunkinAction(Action.VOLUME_DOWN);
   var _volume_mute = new FunkinAction(Action.VOLUME_MUTE);
+
+  #if desktop
   var _fullscreen = new FunkinAction(Action.FULLSCREEN);
+  #end
 
   var byName:Map<String, FunkinAction> = new Map<String, FunkinAction>();
 
@@ -279,10 +282,12 @@ class Controls extends FlxActionSet
   inline function get_VOLUME_MUTE()
     return _volume_mute.check();
 
+  #if desktop
   public var FULLSCREEN(get, never):Bool;
 
   inline function get_FULLSCREEN()
     return _fullscreen.check();
+  #end
 
   public function new(name, scheme:KeyboardScheme = null)
   {
@@ -308,7 +313,7 @@ class Controls extends FlxActionSet
     add(_volume_up);
     add(_volume_down);
     add(_volume_mute);
-    add(_fullscreen);
+    #if desktop add(_fullscreen); #end
 
     for (action in digitalActions)
     {
@@ -542,7 +547,7 @@ class Controls extends FlxActionSet
       case VOLUME_UP: _volume_up;
       case VOLUME_DOWN: _volume_down;
       case VOLUME_MUTE: _volume_mute;
-      case FULLSCREEN: _fullscreen;
+      #if desktop case FULLSCREEN: _fullscreen; #end
     }
   }
 
@@ -618,8 +623,10 @@ class Controls extends FlxActionSet
         func(_volume_down, JUST_PRESSED);
       case VOLUME_MUTE:
         func(_volume_mute, JUST_PRESSED);
+      #if desktop
       case FULLSCREEN:
         func(_fullscreen, JUST_PRESSED);
+      #end
     }
   }
 
@@ -825,7 +832,7 @@ class Controls extends FlxActionSet
     bindKeys(Control.VOLUME_UP, getDefaultKeybinds(scheme, Control.VOLUME_UP));
     bindKeys(Control.VOLUME_DOWN, getDefaultKeybinds(scheme, Control.VOLUME_DOWN));
     bindKeys(Control.VOLUME_MUTE, getDefaultKeybinds(scheme, Control.VOLUME_MUTE));
-    bindKeys(Control.FULLSCREEN, getDefaultKeybinds(scheme, Control.FULLSCREEN));
+    #if desktop bindKeys(Control.FULLSCREEN, getDefaultKeybinds(scheme, Control.FULLSCREEN)); #end
 
     bindMobileLol();
   }
@@ -857,7 +864,7 @@ class Controls extends FlxActionSet
           case Control.VOLUME_UP: return [PLUS, NUMPADPLUS];
           case Control.VOLUME_DOWN: return [MINUS, NUMPADMINUS];
           case Control.VOLUME_MUTE: return [ZERO, NUMPADZERO];
-          case Control.FULLSCREEN: return [FlxKey.F];
+          #if desktop case Control.FULLSCREEN: return [FlxKey.F]; #end
         }
       case Duo(true):
         switch (control)
@@ -882,7 +889,7 @@ class Controls extends FlxActionSet
           case Control.VOLUME_UP: return [PLUS];
           case Control.VOLUME_DOWN: return [MINUS];
           case Control.VOLUME_MUTE: return [ZERO];
-          case Control.FULLSCREEN: return [FlxKey.F];
+          #if desktop case Control.FULLSCREEN: return [FlxKey.F]; #end
         }
       case Duo(false):
         switch (control)
@@ -907,7 +914,7 @@ class Controls extends FlxActionSet
           case Control.VOLUME_UP: return [NUMPADPLUS];
           case Control.VOLUME_DOWN: return [NUMPADMINUS];
           case Control.VOLUME_MUTE: return [NUMPADZERO];
-          case Control.FULLSCREEN: return [];
+          #if desktop case Control.FULLSCREEN: return []; #end
         }
       default:
         // Fallthrough.
@@ -1047,8 +1054,8 @@ class Controls extends FlxActionSet
         return [];
       case Control.DEBUG_CHART:
         return [];
-      case Control.FULLSCREEN:
-        return [];
+      #if desktop case Control.FULLSCREEN:
+        return [];#end
       default:
         // Fallthrough.
     }
@@ -1478,7 +1485,7 @@ enum Control
   ACCEPT;
   BACK;
   PAUSE;
-  FULLSCREEN;
+  #if desktop FULLSCREEN; #end
   // CUTSCENE
   CUTSCENE_ADVANCE;
   // SCREENSHOT
@@ -1524,7 +1531,7 @@ enum abstract Action(String) to String from String
   var BACK = "back";
   var PAUSE = "pause";
   var RESET = "reset";
-  var FULLSCREEN = "fullscreen";
+  #if desktop var FULLSCREEN = "fullscreen"; #end
   // SCREENSHOT
   var SCREENSHOT = "screenshot";
   // CUTSCENE

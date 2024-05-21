@@ -110,7 +110,10 @@ class OptionsState extends MusicBeatState
     PlayerSettings.reset();
     PlayerSettings.init();
 
-    switchPage(Options);
+    //switchPage(Options);
+    FlxTransitionableState.skipNextTransOut = true;
+		FlxTransitionableState.skipNextTransIn = true;
+    FlxG.resetState();
   }
 
   function exitToMainMenu()

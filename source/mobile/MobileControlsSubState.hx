@@ -53,6 +53,7 @@ class MobileControlsSubState extends FlxSubState
 				MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransIn = true;
 			FlxG.resetState();
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
