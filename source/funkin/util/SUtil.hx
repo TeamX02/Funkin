@@ -122,30 +122,6 @@ class SUtil
 
     final msg:String = stack.join('\n');
 
-    #if sys
-    try
-    {
-      if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs')) FileSystem.createDirectory(SUtil.getStorageDirectory() + 'logs');
-
-      File.saveContent(SUtil.getStorageDirectory()
-        + 'logs/'
-        + Lib.application.meta.get('file')
-        + '-'
-        + Date.now().toString().replace(' ', '-').replace(':', "'")
-        + '.txt',
-        msg
-        + '\n');
-    }
-    catch (e:Dynamic)
-    {
-      #if (android && debug)
-      Toast.makeText("Error!\nClouldn't save the crash dump because:\n" + e, Toast.LENGTH_LONG);
-      #else
-      LimeLogger.println("Error!\nClouldn't save the crash dump because:\n" + e);
-      #end
-    }
-    #end
-
     LimeLogger.println(msg);
     Lib.application.window.alert(msg, 'Error!');
     LimeSystem.exit(1);
