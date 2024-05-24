@@ -130,6 +130,7 @@
 	<haxelib name="extension-webview"/>
 	<haxelib name="hxvlc"/>
 	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio"/>
 
 
 	<haxelib name="json2object" /> <!-- JSON parsing -->
@@ -154,11 +155,11 @@
 	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- _________________________________ Custom _______________________________ -->
-	
+
 	<android permission="android.permission.CAPTURE_AUDIO_OUTPUT"/>
 	<android target-sdk-version="29" if="android"/>
 	<android min-sdk-version="15" if="android"/>
-	
+
 	<!-- Disable trace() calls in release builds to bump up performance.
 		<haxeflag name="- -no-traces" unless="debug" />-->
 	<!-- HScript relies heavily on Reflection, which means we can't use DCE. -->
