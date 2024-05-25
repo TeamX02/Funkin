@@ -95,7 +95,7 @@ class FFT {
   static function main() {
     // Sampling and buffer parameters
     final Fs = 44100.0;
-    final N = 4096; // Increased N for even higher resolution
+    final N = 1024; // Increased N for even higher resolution (this isnt used maybe??)
     final halfN = Std.int(N / 2);
 
     // Build a time signal as a sum of sinusoids
