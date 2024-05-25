@@ -37,7 +37,7 @@ class Main extends Sprite
   public static function main():Void
   {
     // We need to make the crash handler LITERALLY FIRST so nothing EVER gets past it.
-    SUtil.uncaughtErrorHandler();
+    // SUtil.uncaughtErrorHandler();
     CrashHandler.initialize();
     CrashHandler.queryStatus();
 
@@ -107,7 +107,9 @@ class Main extends Sprite
     // George recommends binding the save before FlxGame is created.
     Save.load();
     var game:FlxGame = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
+    #if mobile
     SUtil.checkFiles();
+    #end
     // FlxG.game._customSoundTray wants just the class, it calls new from
     // create() in there, which gets called when it's added to stage
     // which is why it needs to be added before addChild(game) here

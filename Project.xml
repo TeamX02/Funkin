@@ -125,10 +125,9 @@
 	<haxelib name="flixel-text-input" /> <!-- Improved text field rendering for HaxeUI -->
 	<haxelib name="polymod" /> <!-- Modding framework -->
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
-	<haxelib name="hxCodec" if="desktop" /> <!-- Video playback -->
 	<haxelib name="extension-androidtools" if="android" /> <!-- Android Functions -->
 	<haxelib name="extension-webview"/>
-	<haxelib name="hxvlc"/>
+	<haxelib name="hxvlc"/> <!-- Video playback -->
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio"/>
 

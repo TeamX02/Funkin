@@ -398,7 +398,11 @@ class FileUtil
     file.addEventListener(IOErrorEvent.IO_ERROR, function(e:IOErrorEvent) {
       trace('IO error writing file.');
     });
+    #if mobile
     SUtil.saveContent(data, SUtil.getStorageDirectory() + path);
+    #elseif desktop
+    file.save(data, path);
+    #end
   }
 
   /**

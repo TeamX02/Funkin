@@ -184,13 +184,13 @@ class BSLTouchUtils
    */
   public static function touchScreenX():Float
   {
-    #if (flixel && android)
+    // #if (flixel && android)
     var touch:FlxTouch = FlxG.touches.getFirst();
 
     if(touch != null) return touch.screenX;
 
     return 0; //espero que es to no rompa nada xd
-    #end
+    // #end
   }
 
   /**
@@ -198,13 +198,13 @@ class BSLTouchUtils
    */
    public static function touchScreenY():Float
    {
-      #if (flixel && android)
+      // #if (flixel && android)
       var touch:FlxTouch = FlxG.touches.getFirst();
-  
+
       if(touch != null) return touch.screenY;
 
       return 0;
-      #end
+      // #end
    }
 
   /**
@@ -281,7 +281,7 @@ class BSLTouchUtils
    */
   public static function over(coisa:Dynamic):Bool
   {
-    #if desktop
+    #if ios
     if (!Main.getMouseVisibility()) return false; // Provavelmente a única coisa que faz o BSLTouchUtils se pagar no ModBoa.
     return FlxG.mouse.overlaps(coisa);
     #elseif mobile

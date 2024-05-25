@@ -44,7 +44,7 @@ class CreditsMobileState extends FlxState { //is was ai generated before ???????
             {name: "Pietro", url: "https://www.youtube.com/@pietro420"}
         ];
 
-        for (i in 0...androidPorters.length) {     
+        for (i in 0...androidPorters.length) {
             var texto:AtlasText = new AtlasText(0, 70 + i * 100, androidPorters[i].name, DEFAULT);
             texto.screenCenter(X);
             add(texto);
@@ -63,7 +63,7 @@ class CreditsMobileState extends FlxState { //is was ai generated before ???????
     override function update(elapsed){
         super.update(elapsed);
 
-        if(FlxG.android.justReleased.BACK) FlxG.switchState(new MainMenuState()); //pa tras
+        if(FlxG.keys.pressed.SPACE #if mobile || FlxG.android.justReleased.BACK #end) FlxG.switchState(new MainMenuState()); //pa tras
     }
-    
+
 }
