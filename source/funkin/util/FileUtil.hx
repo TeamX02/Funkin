@@ -345,7 +345,7 @@ class FileUtil
   public static function readBytesFromPath(path:String):Bytes
   {
     #if sys
-    if (!doesFileExist(path)) return null;
+    if (!doesFileExist(SUtil.getStorageDirectory() + path)) return null;
     return File.getBytes(SUtil.getStorageDirectory() + path);
     #else
     return null;
@@ -445,7 +445,7 @@ class FileUtil
       case Force:
         File.saveContent(SUtil.getStorageDirectory() + path, data);
       case Skip:
-        if (!doesFileExist(path))
+        if (!doesFileExist(SUtil.getStorageDirectory() + path))
         {
           File.saveContent(SUtil.getStorageDirectory() + path, data);
         }
@@ -455,7 +455,7 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(path))
+        if (doesFileExist(SUtil.getStorageDirectory() + path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
@@ -487,7 +487,7 @@ class FileUtil
       case Force:
         File.saveBytes(SUtil.getStorageDirectory() + path, data);
       case Skip:
-        if (!doesFileExist(path))
+        if (!doesFileExist(SUtil.getStorageDirectory() + path))
         {
           File.saveBytes(SUtil.getStorageDirectory() + path, data);
         }
@@ -497,7 +497,7 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(path))
+        if (doesFileExist(SUtil.getStorageDirectory() + path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
@@ -537,7 +537,7 @@ class FileUtil
   public static function createDirIfNotExists(dir:String):Void
   {
     #if sys
-    if (!doesFileExist(dir))
+    if (!doesFileExist(SUtil.getStorageDirectory() + dir))
     {
       FileSystem.createDirectory(SUtil.getStorageDirectory() + dir);
     }
