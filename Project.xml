@@ -156,7 +156,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<android permission="android.permission.CAPTURE_AUDIO_OUTPUT"/>
-	<android target-sdk-version="29" if="android"/>
+	<android target-sdk-version="33" if="android"/>
 	<android min-sdk-version="15" if="android"/>
 
 	<!-- Disable trace() calls in release builds to bump up performance.
