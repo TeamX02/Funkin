@@ -901,6 +901,7 @@ class FreeplayState extends MusicBeatSubState
     CoolDownFav = true;
     timersito = new FlxTimer().start(1, (timer:FlxTimer) -> { CoolDownFav = false; });
    }
+  }
   
   var sparks:FlxSprite;
   var sparksADD:FlxSprite;
