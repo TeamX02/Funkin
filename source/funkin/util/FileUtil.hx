@@ -328,7 +328,7 @@ class FileUtil
   public static function readStringFromPath(path:String):String
   {
     #if sys
-    return File.getContent(SUtil.getStorageDirectory() + path);
+    return File.getContent(path);
     #else
     trace('ERROR: readStringFromPath not implemented for this platform');
     return null;
@@ -345,8 +345,8 @@ class FileUtil
   public static function readBytesFromPath(path:String):Bytes
   {
     #if sys
-    if (!doesFileExist(SUtil.getStorageDirectory() + path)) return null;
-    return File.getBytes(SUtil.getStorageDirectory() + path);
+    if (!doesFileExist(path)) return null;
+    return File.getBytes(path);
     #else
     return null;
     #end
@@ -355,7 +355,7 @@ class FileUtil
   public static function doesFileExist(path:String):Bool
   {
     #if sys
-    return FileSystem.exists(SUtil.getStorageDirectory() + path);
+    return FileSystem.exists(path);
     #else
     return false;
     #end
@@ -399,7 +399,7 @@ class FileUtil
       trace('IO error writing file.');
     });
     #if mobile
-    SUtil.saveContent(data, SUtil.getStorageDirectory() + path);
+    SUtil.saveContent(data, path);
     #elseif desktop
     file.save(data, path);
     #end
@@ -417,7 +417,7 @@ class FileUtil
     #if sys
     try
     {
-      return SerializerUtil.fromJSON(File.getContent(SUtil.getStorageDirectory() + path));
+      return SerializerUtil.fromJSON(File.getContent(path));
     }
     catch (ex)
     {
@@ -439,15 +439,15 @@ class FileUtil
   public static function writeStringToPath(path:String, data:String, mode:FileWriteMode = Skip):Void
   {
     #if sys
-    createDirIfNotExists(Path.directory(SUtil.getStorageDirectory() + path));
+    createDirIfNotExists(Path.directory(path));
     switch (mode)
     {
       case Force:
-        File.saveContent(SUtil.getStorageDirectory() + path, data);
+        File.saveContent(path, data);
       case Skip:
-        if (!doesFileExist(SUtil.getStorageDirectory() + path))
+        if (!doesFileExist(path))
         {
-          File.saveContent(SUtil.getStorageDirectory() + path, data);
+          File.saveContent(path, data);
         }
         else
         {
@@ -455,14 +455,14 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(SUtil.getStorageDirectory() + path))
+        if (doesFileExist(path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
         }
         else
         {
-          File.saveContent(SUtil.getStorageDirectory() + path, data);
+          File.saveContent(path, data);
         }
     }
     #else
@@ -481,15 +481,15 @@ class FileUtil
   public static function writeBytesToPath(path:String, data:Bytes, mode:FileWriteMode = Skip):Void
   {
     #if sys
-    createDirIfNotExists(Path.directory(SUtil.getStorageDirectory() + path));
+    createDirIfNotExists(Path.directory(path));
     switch (mode)
     {
       case Force:
-        File.saveBytes(SUtil.getStorageDirectory() + path, data);
+        File.saveBytes(path, data);
       case Skip:
-        if (!doesFileExist(SUtil.getStorageDirectory() + path))
+        if (!doesFileExist(path))
         {
-          File.saveBytes(SUtil.getStorageDirectory() + path, data);
+          File.saveBytes(path, data);
         }
         else
         {
@@ -497,14 +497,14 @@ class FileUtil
           // throw 'File already exists: $path';
         }
       case Ask:
-        if (doesFileExist(SUtil.getStorageDirectory() + path))
+        if (doesFileExist(path))
         {
           // TODO: We don't have the technology to use native popups yet.
           throw 'File already exists: $path';
         }
         else
         {
-          File.saveBytes(SUtil.getStorageDirectory() + path, data);
+          File.saveBytes(path, data);
         }
     }
     #else
@@ -522,7 +522,7 @@ class FileUtil
   public static function appendStringToPath(path:String, data:String):Void
   {
     #if sys
-    File.append(SUtil.getStorageDirectory() + path, false).writeString(data);
+    File.append(path, false).writeString(data);
     #else
     throw 'Direct file writing by path not supported on this platform.';
     #end
@@ -537,9 +537,9 @@ class FileUtil
   public static function createDirIfNotExists(dir:String):Void
   {
     #if sys
-    if (!doesFileExist(SUtil.getStorageDirectory() + dir))
+    if (!doesFileExist(dir))
     {
-      FileSystem.createDirectory(SUtil.getStorageDirectory() + dir);
+      FileSystem.createDirectory(dir);
     }
     #end
   }

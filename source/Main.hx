@@ -9,10 +9,13 @@ import haxe.ui.Toolkit;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
+import lime.utils.Assets as LimeAssets;
 import openfl.events.Event;
 import openfl.media.Video;
 import openfl.net.NetStream;
 import funkin.util.SUtil;
+
+using StringTools;
 
 /**
  * The main class which initializes HaxeFlixel and starts the game in its initial state.
@@ -37,7 +40,7 @@ class Main extends Sprite
   public static function main():Void
   {
     // We need to make the crash handler LITERALLY FIRST so nothing EVER gets past it.
-    // SUtil.uncaughtErrorHandler();
+    SUtil.uncaughtErrorHandler();
     CrashHandler.initialize();
     CrashHandler.queryStatus();
 
@@ -47,6 +50,10 @@ class Main extends Sprite
   public function new()
   {
     super();
+
+    Sys.setCwd(haxe.io.Path.addTrailingSlash(SUtil.getStorageDirectory()));
+
+    //funkin.util.Generic.initCrashHandler();
 
     // Initialize custom logging.
     haxe.Log.trace = funkin.util.logging.AnsiTrace.trace;
@@ -109,6 +116,26 @@ class Main extends Sprite
     var game:FlxGame = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
     #if mobile
     SUtil.checkFiles();
+    
+
+    if (!sys.FileSystem.exists('assets')) {
+			sys.FileSystem.createDirectory('assets');
+		}
+
+    if (!sys.FileSystem.exists('assets/songs')) {
+			sys.FileSystem.createDirectory('assets/songs');
+		}
+
+    for (file in LimeAssets.list().filter(folder -> folder.startsWith('assets/songs'))) {
+      var sus = file.split('/')[2];
+      trace(sus);
+      if (!sys.FileSystem.exists('assets/songs/$sus')) sys.FileSystem.createDirectory('assets/songs/$sus');
+    }
+
+    for (file in LimeAssets.list().filter(folder -> folder.startsWith('assets/songs'))){
+			if(file.endsWith("Inst.ogg") || file.endsWith("Inst-erect.ogg")) funkin.util.Generic.copyContent(file, file, false); //ehh just for now
+		}
+
     #end
     // FlxG.game._customSoundTray wants just the class, it calls new from
     // create() in there, which gets called when it's added to stage

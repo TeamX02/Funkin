@@ -204,7 +204,7 @@ class Generic
       if (!FileSystem.exists(savePath) /* && Assets.exists(copyPath)*/)
       {
         // Application.current.window.alert(copyPath, 'FileTrace');
-        File.saveBytes(savePath, Assets.getBytes(copyPath));
+        File.saveBytes(savePath, Assets.getBytes('songs:' + copyPath));
         trace('saved');
       }
     }

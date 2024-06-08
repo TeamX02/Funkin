@@ -125,7 +125,7 @@ class PolymodHandler
     var loadedModList:Array<ModMetadata> = polymod.Polymod.init(
       {
         // Root directory for all mods.
-        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
+        modRoot: MOD_FOLDER,
         // The directories for one or more mods to load.
         dirs: ids,
         // Framework being used to load assets.
@@ -220,7 +220,7 @@ class PolymodHandler
     polymod.Polymod.onError = PolymodErrorHandler.onPolymodError;
     return new ZipFileSystem(
       {
-        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
+        modRoot: MOD_FOLDER,
         autoScan: true
       });
   }
@@ -308,7 +308,7 @@ class PolymodHandler
 
     var modMetadata:Array<ModMetadata> = Polymod.scan(
       {
-        modRoot: SUtil.getStorageDirectory() + MOD_FOLDER,
+        modRoot: MOD_FOLDER,
         apiVersionRule: API_VERSION,
         fileSystem: modFileSystem,
         errorCallback: PolymodErrorHandler.onPolymodError

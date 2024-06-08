@@ -173,7 +173,7 @@ class FreeplayState extends MusicBeatSubState
   var exitMovers:ExitMoverData = new Map();
 
   var TouchAreas = [
-  { name: "DiffArea", x: 0, y: 0, width: 365, height: 720 },
+  { name: "DiffArea", x: 0, y: 54, width: 374, height: 122 },
   { name: "SongArea", x: 376, y: 152, width: 446, height: 569 },
   { name: "idkArea", x: 384, y: 3, width: 442, height: 130 },
   { name: "PlayArea", x: 832, y: 3, width: 470, height: 724 }
@@ -1428,11 +1428,12 @@ class FreeplayState extends MusicBeatSubState
         switch(checkArea())
         {
           case "DiffArea":
-          if (Math.abs(dxTouch) >= 100)
-          {
-            touchX = BSLTouchUtils.touchScreenX();
-            if (dxTouch != 0) dxTouch < 0 ? changeDiff(1) : changeDiff(-1);
+          if(touch.justReleased){
+            dj.resetAFKTimer();
+            changeDiff(1);
+            generateSongList(currentFilter, true);
           }
+         
           case "SongArea":
           if (Math.abs(dyTouch) >= 100)
           {
@@ -1985,8 +1986,6 @@ class FreeplayState extends MusicBeatSubState
 
   public function checkArea() //mariomaestro ayudando a los causas - NOTA: tengo q mejorar esta mierda cfffffffff
   {
-   // var touch:FlxTouch = FlxG.touches.getFirst();
-
     for (area in TouchAreas)
     {
       if (BSLTouchUtils.touchScreenX() >= area.x && BSLTouchUtils.touchScreenX() <= area.x + area.width && BSLTouchUtils.touchScreenY() >= area.y && BSLTouchUtils.touchScreenY() <= area.y + area.height) return area.name;

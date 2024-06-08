@@ -1890,6 +1890,9 @@ class PlayState extends MusicBeatSubState
     camCutscene.visible = false;
     // TODO: Maybe tween in the camera after any cutscenes.
     camHUD.visible = true;
+    #if mobile
+    mobileControls.visible = true;
+    #end
   }
 
   /**
@@ -1934,9 +1937,6 @@ class PlayState extends MusicBeatSubState
    */
   function startSong():Void
   {
-    #if mobile
-    mobileControls.visible = true;
-    #end
     startingSong = false;
     if (!overrideMusic && !isGamePaused && currentChart != null)
     {
