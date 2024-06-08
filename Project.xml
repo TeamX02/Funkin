@@ -127,7 +127,6 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 	<haxelib name="polymod" /> <!-- Modding framework -->
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 	<haxelib name="extension-androidtools" if="android" /> <!-- Android Functions -->
-	<haxelib name="extension-webview"/>
 	<haxelib name="hxvlc"/> <!-- Video playback -->
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio"/>
@@ -160,7 +159,7 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 
 	<android permission="android.permission.CAPTURE_AUDIO_OUTPUT"/>
 	<android target-sdk-version="33" if="android"/>
-	<android min-sdk-version="15" if="android"/>
+	<android min-sdk-version="22" if="android"/>
 
 	<!-- Disable trace() calls in release builds to bump up performance.
 		<haxeflag name="- -no-traces" unless="debug" />-->
