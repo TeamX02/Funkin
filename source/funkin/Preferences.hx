@@ -49,39 +49,39 @@ class Preferences
    * Disable to make miss when there arent notes to press.
    * @default `true`
    */
-   public static var ghosttapping(get, set):Bool;
+  public static var ghosttapping(get, set):Bool; //gonna change some stuff later
 
-   static function get_ghosttapping():Bool
-   {
-     return Save?.instance?.options?.ghosttapping;
-   }
+  static function get_ghosttapping():Bool
+  {
+    return Save?.instance?.options?.ghosttapping;
+  }
  
-   static function set_ghosttapping(value:Bool):Bool
-   {
-     var save:Save = Save.instance;
-     save.options.ghosttapping = value;
-     save.flush();
-     return value;
-   }
+  static function set_ghosttapping(value:Bool):Bool
+  {
+    var save:Save = Save.instance;
+    save.options.ghosttapping = value;
+    save.flush();
+    return value;
+  }
 
-   /**
-   * Enable to make notes CENTERED OMG.
-   * @default `false`
-   */
-   public static var middlescroll(get, set):Bool;
+  /**
+  * Enable to make notes CENTERED OMG.
+  * @default `false`
+  */
+  public static var middlescroll(get, set):Bool;
 
-   static function get_middlescroll():Bool
-   {
-     return Save?.instance?.options?.middlescroll;
-   }
+  static function get_middlescroll():Bool
+  {
+    return Save?.instance?.options?.middlescroll;
+  }
  
-   static function set_middlescroll(value:Bool):Bool
-   {
-     var save:Save = Save.instance;
-     save.options.middlescroll = value;
-     save.flush();
-     return value;
-   }
+  static function set_middlescroll(value:Bool):Bool
+  {
+    var save:Save = Save.instance;
+    save.options.middlescroll = value;
+    save.flush();
+    return value;
+  }
 
   /**
    * If disabled, flashing lights in the main menu and other areas will be less intense.
