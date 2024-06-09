@@ -50,18 +50,12 @@ class Main extends Sprite
   public function new()
   {
     super();
-
-    Sys.setCwd(haxe.io.Path.addTrailingSlash(SUtil.getStorageDirectory()));
-
-    //funkin.util.Generic.initCrashHandler();
-
     // Initialize custom logging.
     haxe.Log.trace = funkin.util.logging.AnsiTrace.trace;
     funkin.util.logging.AnsiTrace.traceBF();
 
     // Load mods to override assets.
     // TODO: Replace with loadEnabledMods() once the user can configure the mod list.
-
     funkin.modding.PolymodHandler.loadAllMods();
 
     if (stage != null)

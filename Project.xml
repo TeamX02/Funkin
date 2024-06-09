@@ -158,7 +158,7 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<android permission="android.permission.CAPTURE_AUDIO_OUTPUT"/>
-	<android target-sdk-version="33" if="android"/>
+	<android target-sdk-version="29" if="android"/>
 	<android min-sdk-version="22" if="android"/>
 
 	<!-- Disable trace() calls in release builds to bump up performance.

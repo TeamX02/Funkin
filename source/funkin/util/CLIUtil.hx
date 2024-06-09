@@ -15,7 +15,11 @@ class CLIUtil
   public static function resetWorkingDir():Void
   {
     #if sys
+    #if android
+    var exeDir:String = Path.addTrailingSlash(SUtil.getStorageDirectory()); //for android
+    #else
     var exeDir:String = Path.addTrailingSlash(Path.directory(Sys.programPath()));
+    #end
     #if mac
     exeDir = Path.addTrailingSlash(Path.join([exeDir, '../Resources/']));
     #end
