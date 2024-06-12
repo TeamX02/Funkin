@@ -112,7 +112,7 @@ class Main extends Sprite
     var game:FlxGame = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
     #if mobile
     SUtil.checkFiles();
-    
+    /*
     if (!sys.FileSystem.exists('assets')) {
 			sys.FileSystem.createDirectory('assets');
 		}
@@ -130,7 +130,7 @@ class Main extends Sprite
     for (file in LimeAssets.list().filter(folder -> folder.startsWith('assets/songs'))){
 			if(file.endsWith("Inst.ogg") || file.endsWith("Inst-erect.ogg")) funkin.util.Generic.copyContent(file, file, false); //ehh just for now
 		}
-
+    */
     #end
     // FlxG.game._customSoundTray wants just the class, it calls new from
     // create() in there, which gets called when it's added to stage
