@@ -62,7 +62,7 @@ class ABotVis extends FlxTypedSpriteGroup<FlxSprite>
     // On desktop it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
     // So we want to manually change it!
     analyzer.fftN = 256;
-    #end
+    //#end
 
     // analyzer.maxDb = -35;
     // analyzer.fftN = 2048;
