@@ -16,6 +16,7 @@ import funkin.util.tools.Int64Tools;
  * It's really easy to customize the layout.
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
+ * modified by @MatheusSilver
  */
 class FlxHitbox extends FlxSpriteGroup
 {
