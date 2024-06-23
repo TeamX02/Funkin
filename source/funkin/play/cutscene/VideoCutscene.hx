@@ -29,7 +29,7 @@ class VideoCutscene
   static var vid:FlxVideo;
   #end
   #if (hxvlc || hxCodec)
-  static var vid:FlxVideoSprite;
+  static var vid:FlxVideoSprite;//no way, u just did the #if hxCodec to #if (hxvlc || hxCodec)????? HOW DARE U my implementantion got stoelen *sob*
   #end
 
   /**
