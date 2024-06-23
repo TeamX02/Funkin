@@ -236,10 +236,7 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 	</section>
 
 	<section if="mobile">
-		<architecture exclude="armv7" if="ONLY_ARM64" />
-		<architecture include="arm64" if="ONLY_ARM64" />
-		<architecture include="armv7" if="ONLY_ARMV7" />
-		<architecture exclude="arm64" if="ONLY_ARMV7" />
+		<architecture include="armv7" if="android" />
 	</section>
 
 	<section>
