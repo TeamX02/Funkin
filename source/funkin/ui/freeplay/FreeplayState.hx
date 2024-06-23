@@ -922,7 +922,7 @@ class FreeplayState extends MusicBeatSubState
     timersito = new FlxTimer().start(1, (timer:FlxTimer) -> { CoolDownFav = false; });
    }
   }
-  
+
   var sparks:FlxSprite;
   var sparksADD:FlxSprite;
 
@@ -1412,7 +1412,7 @@ class FreeplayState extends MusicBeatSubState
             changeDiff(1);
             generateSongList(currentFilter, true);
           }
-         
+
           case "SongArea":
           if (Math.abs(dyTouch) >= 100)
           {
@@ -1437,9 +1437,9 @@ class FreeplayState extends MusicBeatSubState
     #if mobile
     for (touch in FlxG.touches.list)
     {
-      if (touch.justPressed)
+      if (curSelected == curSelected && touch.justPressed && touch.overlaps(grpCapsules.members[curSelected].capsule))
       {
-        // accepted = true;
+        accepted = true;
       }
     }
     #end
